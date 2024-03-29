@@ -14,7 +14,6 @@ CAD program, and create G-Code for Isolation routing.
 ## Version requirements
 * **`Python 3.10`**
 * `PyQt5`
-* See `pyproject.toml` file for version dependency (or `requirements.txt` file)
 * Use a **strictly versions** of Python and packages
 
 See more on GitHub:
@@ -37,7 +36,7 @@ python -m pip install -r requirements.txt
 
 ## Kubuntu instructions
 
-So, according to strictly dependency graph and new version of Debian `pip` (disallow to install packages to system Python environment, for example Kubuntu 23.04), use virtual environment for python packages installation.
+Nowadays `pip` disallow to install packages to system python environment, use virtual environment for python packages installation.
 
 For example: pyenv.
 
@@ -51,6 +50,14 @@ pyenv install 3.10.11
 # Check available python versions:
 pyenv versions
 ```
+
+It is possible to set python version for system-wide using:
+```
+pyenv global 3.10.11
+# apply changes to opened shell:
+pyenv init
+```
+
 
 ### pyenv: install required python version
 
@@ -103,7 +110,7 @@ FlatCAM.py --headless
 
 So, according to strictly dependency graph and new version of Debian `pip` (disallow to install packages to system Python environment, for example Kubuntu 23.04), project moved to automated version control:
 * [pyenv](https://github.com/pyenv/pyenv?ysclid=lhe4n4h8za388534739#installation) - for install to Python version environment
-* [poetry](https://python-poetry.org/docs/) - for packages install to Python virtual environment. See `pyproject.toml` file
+* [poetry](https://python-poetry.org/docs/) - for packages install to Python virtual environment. See `pyproject.toml` file for version dependency
 
 ### pyenv usage
 
