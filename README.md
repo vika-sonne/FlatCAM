@@ -37,6 +37,70 @@ python -m pip install -r requirements.txt
 
 ## Kubuntu instructions
 
+So, according to strictly dependency graph and new version of Debian `pip` (disallow to install packages to system Python environment, for example Kubuntu 23.04), use virtual environment for python packages installation.
+
+For example: pyenv.
+
+### pyenv: install required python version
+
+```
+# Install pyenv:
+curl https://pyenv.run | bash
+# Install python version:
+pyenv install 3.10.11
+# Check available python versions:
+pyenv versions
+```
+
+### pyenv: install required python version
+
+```
+# Set installed python version:
+pyenv shell 3.10.11
+# Install Python packages:
+python -m pip install -r requirements.txt
+```
+
+### pyenv: run FlatCAM
+
+```
+# Set installed python version:
+pyenv shell 3.10.11
+# Run FlatCAM:
+python FlatCAM.py
+```
+
+# Run
+
+```
+python FlatCAM.py
+```
+
+Get command-line help:
+```
+python FlatCAM.py -h
+usage: FlatCAM.py [-h] [--shellfile SHELLFILE] [--shellvar SHELLVAR] [--headless] [-V] [misc ...]
+
+2D Computer-Aided PCB Manufacturing for CNC
+
+positional arguments:
+  misc                  commands: quit, exit, save; file path: .FlatPrj, .FlatConfig, .FlatScript, .TCL
+
+options:
+  -h, --help            show this help message and exit
+  --shellfile SHELLFILE
+  --shellvar SHELLVAR
+  --headless
+  -V, --version         show version
+
+Usage examples:
+FlatCAM.py --shellfile=<cmd_line_shellfile>
+FlatCAM.py --shellvar=<1,'C:\path',23>
+FlatCAM.py --headless
+```
+
+# Development
+
 So, according to strictly dependency graph and new version of Debian `pip` (disallow to install packages to system Python environment, for example Kubuntu 23.04), project moved to automated version control:
 * [pyenv](https://github.com/pyenv/pyenv?ysclid=lhe4n4h8za388534739#installation) - for install to Python version environment
 * [poetry](https://python-poetry.org/docs/) - for packages install to Python virtual environment. See `pyproject.toml` file
@@ -99,34 +163,4 @@ For spetial cases it possible export poetry lock file to `requirements.txt` file
 ```
 poetry export -f requirements.txt --output requirements.txt
 python -m pip install -r requirements.txt
-```
-
-# Run
-
-
-```
-python FlatCAM.py
-```
-
-Get command-line help:
-```
-python FlatCAM.py -h
-usage: FlatCAM.py [-h] [--shellfile SHELLFILE] [--shellvar SHELLVAR] [--headless] [-V] [misc ...]
-
-2D Computer-Aided PCB Manufacturing for CNC
-
-positional arguments:
-  misc                  commands: quit, exit, save; file path: .FlatPrj, .FlatConfig, .FlatScript, .TCL
-
-options:
-  -h, --help            show this help message and exit
-  --shellfile SHELLFILE
-  --shellvar SHELLVAR
-  --headless
-  -V, --version         show version
-
-Usage examples:
-FlatCAM.py --shellfile=<cmd_line_shellfile>
-FlatCAM.py --shellvar=<1,'C:\path',23>
-FlatCAM.py --headless
 ```
