@@ -22,15 +22,13 @@ import logging
 import html
 import sys
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
 log = logging.getLogger('base')
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 EDIT_SIZE_HINT = 70
 
@@ -4262,7 +4260,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# JOG Y Up
 		self.jog_up_button = QtWidgets.QToolButton()
-		self.jog_up_button.setIcon(QtGui.QIcon(self.app.resource_location + '/up-arrow32.png'))
+		self.jog_up_button.setIcon(QtGui.QIcon(':/images/up-arrow32.png'))
 		self.jog_up_button.setToolTip(
 			_("Jog the Y axis.")
 		)
@@ -4270,7 +4268,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# Origin
 		self.jog_origin_button = QtWidgets.QToolButton()
-		self.jog_origin_button.setIcon(QtGui.QIcon(self.app.resource_location + '/origin2_32.png'))
+		self.jog_origin_button.setIcon(QtGui.QIcon(':/images/origin2_32.png'))
 		self.jog_origin_button.setToolTip(
 			'%s' % _("Move to Origin")
 		)
@@ -4279,7 +4277,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# JOG Y Down
 		self.jog_down_button = QtWidgets.QToolButton()
-		self.jog_down_button.setIcon(QtGui.QIcon(self.app.resource_location + '/down-arrow32.png'))
+		self.jog_down_button.setIcon(QtGui.QIcon(':/images/down-arrow32.png'))
 		self.jog_down_button.setToolTip(
 			_("Jog the Y axis.")
 		)
@@ -4287,7 +4285,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# JOG X Left
 		self.jog_left_button = QtWidgets.QToolButton()
-		self.jog_left_button.setIcon(QtGui.QIcon(self.app.resource_location + '/left_arrow32.png'))
+		self.jog_left_button.setIcon(QtGui.QIcon(':/images/left_arrow32.png'))
 		self.jog_left_button.setToolTip(
 			_("Jog the X axis.")
 		)
@@ -4295,7 +4293,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# JOG X Right
 		self.jog_right_button = QtWidgets.QToolButton()
-		self.jog_right_button.setIcon(QtGui.QIcon(self.app.resource_location + '/right_arrow32.png'))
+		self.jog_right_button.setIcon(QtGui.QIcon(':/images/right_arrow32.png'))
 		self.jog_right_button.setToolTip(
 			_("Jog the X axis.")
 		)
@@ -4303,7 +4301,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# JOG Z Up
 		self.jog_z_up_button = QtWidgets.QToolButton()
-		self.jog_z_up_button.setIcon(QtGui.QIcon(self.app.resource_location + '/up-arrow32.png'))
+		self.jog_z_up_button.setIcon(QtGui.QIcon(':/images/up-arrow32.png'))
 		self.jog_z_up_button.setText('Z')
 		self.jog_z_up_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
 		self.jog_z_up_button.setToolTip(
@@ -4313,7 +4311,7 @@ class FCJog(QtWidgets.QFrame):
 
 		# JOG Z Down
 		self.jog_z_down_button = QtWidgets.QToolButton()
-		self.jog_z_down_button.setIcon(QtGui.QIcon(self.app.resource_location + '/down-arrow32.png'))
+		self.jog_z_down_button.setIcon(QtGui.QIcon(':/images/down-arrow32.png'))
 		self.jog_z_down_button.setText('Z')
 		self.jog_z_down_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
 		self.jog_z_down_button.setToolTip(
@@ -4495,20 +4493,20 @@ class FlatCAMActivityView(QtWidgets.QWidget):
 		self.app = app
 
 		if self.app.defaults["global_activity_icon"] == "Ball green":
-			icon = self.app.resource_location + '/active_2_static.png'
-			movie = self.app.resource_location + "/active_2.gif"
+			icon = ':/images/active_2_static.png'
+			movie = ':/images/active_2.gif'
 		elif self.app.defaults["global_activity_icon"] == "Ball black":
-			icon = self.app.resource_location + '/active_static.png'
-			movie = self.app.resource_location + "/active.gif"
+			icon = ':/images/active_static.png'
+			movie = ':/images/active.gif'
 		elif self.app.defaults["global_activity_icon"] == "Arrow green":
-			icon = self.app.resource_location + '/active_3_static.png'
-			movie = self.app.resource_location + "/active_3.gif"
+			icon = ':/images/active_3_static.png'
+			movie = ':/images/active_3.gif'
 		elif self.app.defaults["global_activity_icon"] == "Eclipse green":
-			icon = self.app.resource_location + '/active_4_static.png'
-			movie = self.app.resource_location + "/active_4.gif"
+			icon = ':/images/active_4_static.png'
+			movie = ':/images/active_4.gif'
 		else:
-			icon = self.app.resource_location + '/active_static.png'
-			movie = self.app.resource_location + "/active.gif"
+			icon = ':/images/active_static.png'
+			movie = ':/images/active.gif'
 
 		self.setMinimumWidth(200)
 		self.movie_path = movie
@@ -4558,7 +4556,7 @@ class FlatCAMInfoBar(QtWidgets.QWidget):
 
 		self.icon = QtWidgets.QLabel(self)
 		self.icon.setGeometry(0, 0, 12, 12)
-		self.pmap = QtGui.QPixmap(self.app.resource_location + '/graylight12.png')
+		self.pmap = QtGui.QPixmap(':/images/graylight12.png')
 		self.icon.setPixmap(self.pmap)
 
 		self.lock_pmaps = False
@@ -4588,15 +4586,15 @@ class FlatCAMInfoBar(QtWidgets.QWidget):
 		if self.lock_pmaps is not True:
 			self.pmap.fill()
 			if level == "ERROR" or level == "ERROR_NOTCL":
-				self.pmap = QtGui.QPixmap(self.app.resource_location + '/redlight12.png')
+				self.pmap = QtGui.QPixmap(':/images/redlight12.png')
 			elif level.lower() == "success":
-				self.pmap = QtGui.QPixmap(self.app.resource_location + '/greenlight12.png')
+				self.pmap = QtGui.QPixmap(':/images/greenlight12.png')
 			elif level == "WARNING" or level == "WARNING_NOTCL":
-				self.pmap = QtGui.QPixmap(self.app.resource_location + '/yellowlight12.png')
+				self.pmap = QtGui.QPixmap(':/images/yellowlight12.png')
 			elif level.lower() == "selected":
-				self.pmap = QtGui.QPixmap(self.app.resource_location + '/bluelight12.png')
+				self.pmap = QtGui.QPixmap(':/images/bluelight12.png')
 			else:
-				self.pmap = QtGui.QPixmap(self.app.resource_location + '/graylight12.png')
+				self.pmap = QtGui.QPixmap(':/images/graylight12.png')
 
 		try:
 			self.set_text_(text)
@@ -4617,7 +4615,7 @@ class FlatCAMSystemTray(QtWidgets.QSystemTrayIcon):
 
 		menu = QtWidgets.QMenu(parent)
 
-		menu_runscript = QtWidgets.QAction(QtGui.QIcon(self.app.resource_location + '/script14.png'),
+		menu_runscript = QtWidgets.QAction(QtGui.QIcon(':/images/script14.png'),
 										   '%s' % _('Run Script ...'), self)
 		menu_runscript.setToolTip(
 			_("Will run the opened Tcl Script thus\n"
@@ -4629,26 +4627,26 @@ class FlatCAMSystemTray(QtWidgets.QSystemTrayIcon):
 		menu.addSeparator()
 
 		if headless is None:
-			self.menu_open = menu.addMenu(QtGui.QIcon(self.app.resource_location + '/folder32_bis.png'), _('Open'))
+			self.menu_open = menu.addMenu(QtGui.QIcon(':/images/folder32_bis.png'), _('Open'))
 
 			# Open Project ...
-			menu_openproject = QtWidgets.QAction(QtGui.QIcon(self.app.resource_location + '/folder16.png'),
+			menu_openproject = QtWidgets.QAction(QtGui.QIcon(':/images/folder16.png'),
 												 '%s ...' % _('Open Project'), self)
 			self.menu_open.addAction(menu_openproject)
 			self.menu_open.addSeparator()
 
 			# Open Gerber ...
-			menu_opengerber = QtWidgets.QAction(QtGui.QIcon(self.app.resource_location + '/flatcam_icon24.png'),
+			menu_opengerber = QtWidgets.QAction(QtGui.QIcon(':/images/flatcam_icon24.png'),
 												'%s ...\t%s' % (_('Open Gerber'), _('Ctrl+G')), self)
 			self.menu_open.addAction(menu_opengerber)
 
 			# Open Excellon ...
-			menu_openexcellon = QtWidgets.QAction(QtGui.QIcon(self.app.resource_location + '/open_excellon32.png'),
+			menu_openexcellon = QtWidgets.QAction(QtGui.QIcon(':/images/open_excellon32.png'),
 												  '%s ...\t%s' % (_('Open Excellon'), _('Ctrl+E')), self)
 			self.menu_open.addAction(menu_openexcellon)
 
 			# Open G-Code ...
-			menu_opengcode = QtWidgets.QAction(QtGui.QIcon(self.app.resource_location + '/code.png'),
+			menu_opengcode = QtWidgets.QAction(QtGui.QIcon(':/images/code.png'),
 											   '%s ...' % _('Open G-Code'), self)
 			self.menu_open.addAction(menu_opengcode)
 
@@ -4660,7 +4658,7 @@ class FlatCAMSystemTray(QtWidgets.QSystemTrayIcon):
 			menu_opengcode.triggered.connect(self.app.f_handlers.on_fileopengcode)
 
 		exitAction = menu.addAction(_("Exit"))
-		exitAction.setIcon(QtGui.QIcon(self.app.resource_location + '/power16.png'))
+		exitAction.setIcon(QtGui.QIcon(':/images/power16.png'))
 		self.setContextMenu(menu)
 
 		menu_runscript.triggered.connect(lambda: self.app.on_filerunscript(

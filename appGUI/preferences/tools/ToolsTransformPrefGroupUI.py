@@ -4,13 +4,11 @@ from PyQt5.QtCore import QSettings
 from appGUI.GUIElements import FCDoubleSpinner, FCCheckBox, NumericalEvalTupleEntry, FCComboBox
 from appGUI.preferences.OptionsGroupUI import OptionsGroupUI
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):
@@ -77,9 +75,9 @@ class ToolsTransformPrefGroupUI(OptionsGroupUI):
 		self.type_obj_combo.addItem(_("Excellon"))
 		self.type_obj_combo.addItem(_("Geometry"))
 
-		self.type_obj_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.type_obj_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/drill16.png"))
-		self.type_obj_combo.setItemIcon(2, QtGui.QIcon(self.app.resource_location + "/geometry16.png"))
+		self.type_obj_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.type_obj_combo.setItemIcon(1, QtGui.QIcon(':/images/drill16.png'))
+		self.type_obj_combo.setItemIcon(2, QtGui.QIcon(':/images/geometry16.png'))
 
 		grid0.addWidget(self.type_object_label, 3, 0)
 		grid0.addWidget(self.type_obj_combo, 3, 1)

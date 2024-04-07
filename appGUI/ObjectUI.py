@@ -10,18 +10,15 @@
 # File modified by: vika-sonne, 2023                       #
 # ##########################################################
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 import sys
 # FlatCAM imports
 from appGUI.GUIElements import *
-from settings import is_theme_white
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QtCore.QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):
@@ -36,14 +33,12 @@ class ObjectUI(QtWidgets.QWidget):
 	put UI elements in ObjectUI.custom_box (QtWidgets.QLayout).
 	"""
 
-	def __init__(self, app, icon_file='assets/resources/flatcam_icon32.png', title=_('App Object'),
+	def __init__(self, app, icon_file=':/images/flatcam_icon32.png', title=_('App Object'),
 				 parent=None, common=True):
 		QtWidgets.QWidget.__init__(self, parent=parent)
 
 		self.app = app
 		self.decimals = app.decimals
-
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
 
 		layout = QtWidgets.QVBoxLayout()
 		self.setLayout(layout)
@@ -53,7 +48,7 @@ class ObjectUI(QtWidgets.QWidget):
 		layout.addLayout(self.title_box)
 
 		# ## Page Title icon
-		pixmap = QtGui.QPixmap(icon_file.replace('assets/resources', self.resource_loc))
+		pixmap = QtGui.QPixmap(icon_file)
 		self.icon = FCLabel()
 		self.icon.setPixmap(pixmap)
 		self.title_box.addWidget(self.icon, stretch=0)
@@ -142,7 +137,7 @@ class ObjectUI(QtWidgets.QWidget):
 			self.common_grid.addWidget(self.offset_button, 4, 1)
 
 			self.transformations_button = FCButton(_('Transformations'))
-			self.transformations_button.setIcon(QtGui.QIcon(self.app.resource_location + '/transform.png'))
+			self.transformations_button.setIcon(QtGui.QIcon(':/images/transform.png'))
 			self.transformations_button.setToolTip(
 				_("Geometrical transformations of the current object.")
 			)
@@ -231,7 +226,7 @@ class GerberObjectUI(ObjectUI):
 
 		# Editor
 		self.editor_button = FCButton(_('Gerber Editor'))
-		self.editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/edit_file32.png'))
+		self.editor_button.setIcon(QtGui.QIcon(':/images/edit_file32.png'))
 		self.editor_button.setToolTip(
 			_("Start the Object Editor")
 		)
@@ -245,7 +240,7 @@ class GerberObjectUI(ObjectUI):
 
 		# PROPERTIES CB
 		self.properties_button = FCButton('%s' % _("PROPERTIES"), checkable=True)
-		self.properties_button.setIcon(QtGui.QIcon(self.app.resource_location + '/properties32.png'))
+		self.properties_button.setIcon(QtGui.QIcon(':/images/properties32.png'))
 		self.properties_button.setToolTip(_("Show the Properties."))
 		self.properties_button.setStyleSheet("""
 									  QPushButton
@@ -347,7 +342,7 @@ class GerberObjectUI(ObjectUI):
 
 		# Isolation Tool - will create isolation paths around the copper features
 		self.iso_button = FCButton(_('Isolation Routing'))
-		# self.iso_button.setIcon(QtGui.QIcon(self.app.resource_location + '/iso_16.png'))
+		# self.iso_button.setIcon(QtGui.QIcon(':/images/iso_16.png'))
 		self.iso_button.setToolTip(
 			_("Create a Geometry object with\n"
 			  "toolpaths to cut around polygons.")
@@ -362,7 +357,7 @@ class GerberObjectUI(ObjectUI):
 
 		# ## Clear non-copper regions
 		self.generate_ncc_button = FCButton(_('NCC Tool'))
-		self.generate_ncc_button.setIcon(QtGui.QIcon(self.app.resource_location + '/eraser26.png'))
+		self.generate_ncc_button.setIcon(QtGui.QIcon(':/images/eraser26.png'))
 		self.generate_ncc_button.setToolTip(
 			_("Create the Geometry Object\n"
 			  "for non-copper routing.")
@@ -377,7 +372,7 @@ class GerberObjectUI(ObjectUI):
 
 		# ## Board cutout
 		self.generate_cutout_button = FCButton(_('Cutout Tool'))
-		self.generate_cutout_button.setIcon(QtGui.QIcon(self.app.resource_location + '/cut32_bis.png'))
+		self.generate_cutout_button.setIcon(QtGui.QIcon(':/images/cut32_bis.png'))
 		self.generate_cutout_button.setToolTip(
 			_("Generate the geometry for\n"
 			  "the board cutout.")
@@ -397,7 +392,7 @@ class GerberObjectUI(ObjectUI):
 
 		# UTILITIES BUTTON
 		self.util_button = FCButton('%s' % _("UTILTIES"), checkable=True)
-		self.util_button.setIcon(QtGui.QIcon(self.app.resource_location + '/settings18.png'))
+		self.util_button.setIcon(QtGui.QIcon(':/images/settings18.png'))
 		self.util_button.setToolTip(_("Show the Utilties."))
 		self.util_button.setStyleSheet("""
 									  QPushButton
@@ -457,7 +452,7 @@ class GerberObjectUI(ObjectUI):
 		)
 
 		self.generate_noncopper_button = FCButton(_('Generate Geometry'))
-		self.generate_noncopper_button.setIcon(QtGui.QIcon(self.app.resource_location + '/geometry32.png'))
+		self.generate_noncopper_button.setIcon(QtGui.QIcon(':/images/geometry32.png'))
 		util_grid.addWidget(self.noncopper_rounded_cb, 4, 0)
 		util_grid.addWidget(self.generate_noncopper_button, 4, 1, 1, 2)
 
@@ -497,7 +492,7 @@ class GerberObjectUI(ObjectUI):
 		)
 
 		self.generate_bb_button = FCButton(_('Generate Geometry'))
-		self.generate_bb_button.setIcon(QtGui.QIcon(self.app.resource_location + '/geometry32.png'))
+		self.generate_bb_button.setIcon(QtGui.QIcon(':/images/geometry32.png'))
 		self.generate_bb_button.setToolTip(
 			_("Generate the Geometry object.")
 		)
@@ -515,10 +510,8 @@ class ExcellonObjectUI(ObjectUI):
 		self.decimals = app.decimals
 		self.app = app
 
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
-
 		ObjectUI.__init__(self, title=_('Excellon Object'),
-						  icon_file=self.resource_loc + '/drill32.png',
+						  icon_file=':/images/drill32.png',
 						  parent=parent,
 						  app=self.app)
 
@@ -560,7 +553,7 @@ class ExcellonObjectUI(ObjectUI):
 
 		# Editor
 		self.editor_button = FCButton(_('Excellon Editor'))
-		self.editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/edit_file32.png'))
+		self.editor_button.setIcon(QtGui.QIcon(':/images/edit_file32.png'))
 
 		self.editor_button.setToolTip(
 			_("Start the Object Editor")
@@ -575,7 +568,7 @@ class ExcellonObjectUI(ObjectUI):
 
 		# PROPERTIES CB
 		self.properties_button = FCButton('%s' % _("PROPERTIES"), checkable=True)
-		self.properties_button.setIcon(QtGui.QIcon(self.app.resource_location + '/properties32.png'))
+		self.properties_button.setIcon(QtGui.QIcon(':/images/properties32.png'))
 		self.properties_button.setToolTip(_("Show the Properties."))
 		self.properties_button.setStyleSheet("""
 									  QPushButton
@@ -702,7 +695,7 @@ class ExcellonObjectUI(ObjectUI):
 
 		# Drilling Tool - will create GCode for drill holes
 		self.drill_button = FCButton(_('Drilling Tool'))
-		self.drill_button.setIcon(QtGui.QIcon(self.app.resource_location + '/drilling_tool32.png'))
+		self.drill_button.setIcon(QtGui.QIcon(':/images/drilling_tool32.png'))
 		self.drill_button.setToolTip(
 			_("Generate GCode from the drill holes in an Excellon object.")
 		)
@@ -716,7 +709,7 @@ class ExcellonObjectUI(ObjectUI):
 
 		# Milling Tool - will create GCode for slot holes
 		self.milling_button = FCButton(_('Milling Tool'))
-		self.milling_button.setIcon(QtGui.QIcon(self.app.resource_location + '/milling_tool32.png'))
+		self.milling_button.setIcon(QtGui.QIcon(':/images/milling_tool32.png'))
 		self.milling_button.setToolTip(
 			_("Generate a Geometry for milling drills or slots in an Excellon object.")
 		)
@@ -737,7 +730,7 @@ class ExcellonObjectUI(ObjectUI):
 
 		# UTILITIES BUTTON
 		self.util_button = FCButton('%s' % _("UTILTIES"), checkable=True)
-		self.util_button.setIcon(QtGui.QIcon(self.app.resource_location + '/settings18.png'))
+		self.util_button.setIcon(QtGui.QIcon(':/images/settings18.png'))
 		self.util_button.setToolTip(_("Show the Utilties."))
 		self.util_button.setStyleSheet("""
 									  QPushButton
@@ -834,11 +827,9 @@ class GeometryObjectUI(ObjectUI):
 		self.decimals = app.decimals
 		self.app = app
 
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
-
 		super(GeometryObjectUI, self).__init__(
 			title=_('Geometry Object'),
-			icon_file=self.resource_loc + '/geometry32.png', parent=parent,  app=self.app
+			icon_file=':/images/geometry32.png', parent=parent,  app=self.app
 		)
 
 		# Plot options
@@ -873,7 +864,7 @@ class GeometryObjectUI(ObjectUI):
 
 		# Editor
 		self.editor_button = FCButton(_('Geometry Editor'))
-		self.editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/edit_file32.png'))
+		self.editor_button.setIcon(QtGui.QIcon(':/images/edit_file32.png'))
 
 		self.editor_button.setToolTip(
 			_("Start the Object Editor")
@@ -888,7 +879,7 @@ class GeometryObjectUI(ObjectUI):
 
 		# PROPERTIES CB
 		self.properties_button = FCButton('%s' % _("PROPERTIES"), checkable=True)
-		self.properties_button.setIcon(QtGui.QIcon(self.app.resource_location + '/properties32.png'))
+		self.properties_button.setIcon(QtGui.QIcon(':/images/properties32.png'))
 		self.properties_button.setToolTip(_("Show the Properties."))
 		self.properties_button.setStyleSheet("""
 									  QPushButton
@@ -1066,14 +1057,14 @@ class GeometryObjectUI(ObjectUI):
 		bhlay = QtWidgets.QHBoxLayout()
 
 		self.search_and_add_btn = FCButton(_('Search and Add'))
-		self.search_and_add_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.search_and_add_btn.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.search_and_add_btn.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "with the diameter specified above.")
 		)
 
 		self.addtool_from_db_btn = FCButton(_('Pick from DB'))
-		self.addtool_from_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/search_db32.png'))
+		self.addtool_from_db_btn.setIcon(QtGui.QIcon(':/images/search_db32.png'))
 		self.addtool_from_db_btn.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "from the Tools Database.\n"
@@ -1095,7 +1086,7 @@ class GeometryObjectUI(ObjectUI):
 		self.geo_table_box.addLayout(grid2)
 
 		self.deltool_btn = FCButton(_('Delete'))
-		self.deltool_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/trash16.png'))
+		self.deltool_btn.setIcon(QtGui.QIcon(':/images/trash16.png'))
 		self.deltool_btn.setToolTip(
 			_("Delete a selection of tools in the Tool Table\n"
 			  "by first selecting a row in the Tool Table.")
@@ -1393,7 +1384,7 @@ class GeometryObjectUI(ObjectUI):
 		self.grid4.addWidget(separator_line2, 0, 0, 1, 2)
 
 		self.apply_param_to_all = FCButton(_("Apply parameters to all tools"))
-		self.apply_param_to_all.setIcon(QtGui.QIcon(self.app.resource_location + '/param_all32.png'))
+		self.apply_param_to_all.setIcon(QtGui.QIcon(':/images/param_all32.png'))
 		self.apply_param_to_all.setToolTip(
 			_("The parameters in the current form will be applied\n"
 			  "on all the tools from the Tool Table.")
@@ -1733,7 +1724,7 @@ class GeometryObjectUI(ObjectUI):
 
 		# Button
 		self.generate_cnc_button = FCButton(_('Generate CNCJob object'))
-		self.generate_cnc_button.setIcon(QtGui.QIcon(self.app.resource_location + '/cnc16.png'))
+		self.generate_cnc_button.setIcon(QtGui.QIcon(':/images/cnc16.png'))
 		self.generate_cnc_button.setToolTip('%s.\n%s' % (
 			_("Generate CNCJob object"),
 			_(
@@ -1762,7 +1753,7 @@ class GeometryObjectUI(ObjectUI):
 
 		# Milling Tool - will create GCode for slot holes
 		self.milling_button = FCButton(_('Milling Tool'))
-		self.milling_button.setIcon(QtGui.QIcon(self.app.resource_location + '/milling_tool32.png'))
+		self.milling_button.setIcon(QtGui.QIcon(':/images/milling_tool32.png'))
 		self.milling_button.setToolTip(
 			_("Generate a CNCJob by milling a Geometry.")
 		)
@@ -1778,7 +1769,7 @@ class GeometryObjectUI(ObjectUI):
 
 		# Paint Button
 		self.paint_tool_button = FCButton(_('Paint Tool'))
-		self.paint_tool_button.setIcon(QtGui.QIcon(self.app.resource_location + '/paint20_1.png'))
+		self.paint_tool_button.setIcon(QtGui.QIcon(':/images/paint20_1.png'))
 		self.paint_tool_button.setToolTip(
 			_("Creates tool paths to cover the\n"
 			  "whole area of a polygon.")
@@ -1794,7 +1785,7 @@ class GeometryObjectUI(ObjectUI):
 
 		# NCC Tool
 		self.generate_ncc_button = FCButton(_('NCC Tool'))
-		self.generate_ncc_button.setIcon(QtGui.QIcon(self.app.resource_location + '/eraser26.png'))
+		self.generate_ncc_button.setIcon(QtGui.QIcon(':/images/eraser26.png'))
 		self.generate_ncc_button.setToolTip(
 			_("Create the Geometry Object\n"
 			  "for non-copper routing.")
@@ -1822,11 +1813,9 @@ class CNCObjectUI(ObjectUI):
 		self.decimals = app.decimals
 		self.app = app
 
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
-
 		ObjectUI.__init__(
 			self, title=_('CNC Job Object'),
-			icon_file=self.resource_loc + '/cnc32.png', parent=parent,
+			icon_file=':/images/cnc32.png', parent=parent,
 			app=self.app)
 
 		for i in range(0, self.common_grid.count()):
@@ -1870,7 +1859,7 @@ class CNCObjectUI(ObjectUI):
 
 		# Editor
 		self.editor_button = FCButton(_('GCode Editor'))
-		self.editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/edit_file32.png'))
+		self.editor_button.setIcon(QtGui.QIcon(':/images/edit_file32.png'))
 
 		self.editor_button.setToolTip(
 			_("Start the Object Editor")
@@ -1885,7 +1874,7 @@ class CNCObjectUI(ObjectUI):
 
 		# PROPERTIES CB
 		self.properties_button = FCButton('%s' % _("PROPERTIES"), checkable=True)
-		self.properties_button.setIcon(QtGui.QIcon(self.app.resource_location + '/properties32.png'))
+		self.properties_button.setIcon(QtGui.QIcon(':/images/properties32.png'))
 		self.properties_button.setToolTip(_("Show the Properties."))
 		self.properties_button.setStyleSheet("""
 									  QPushButton
@@ -2036,7 +2025,7 @@ class CNCObjectUI(ObjectUI):
 
 		# Autolevelling
 		self.sal_btn = FCButton('%s' % _("Autolevelling"), checkable=True)
-		# self.sal_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/properties32.png'))
+		# self.sal_btn.setIcon(QtGui.QIcon(':/images/properties32.png'))
 		self.sal_btn.setToolTip(
 			_("Enable the autolevelling feature.")
 		)
@@ -2536,7 +2525,7 @@ class CNCObjectUI(ObjectUI):
 		hm_lay.addWidget(self.grbl_get_heightmap_button, stretch=1)
 
 		self.grbl_save_height_map_button = QtWidgets.QToolButton()
-		self.grbl_save_height_map_button.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.grbl_save_height_map_button.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.grbl_save_height_map_button.setToolTip(
 			_("Will save the GRBL height map.")
 		)
@@ -2556,7 +2545,7 @@ class CNCObjectUI(ObjectUI):
 
 		height_lay.addWidget(self.h_gcode_button)
 		self.view_h_gcode_button = QtWidgets.QToolButton()
-		self.view_h_gcode_button.setIcon(QtGui.QIcon(self.app.resource_location + '/edit_file32.png'))
+		self.view_h_gcode_button.setIcon(QtGui.QIcon(':/images/edit_file32.png'))
 		# self.view_h_gcode_button.setSizePolicy(QtWidgets.QSizePolicy.Ignored, QtWidgets.QSizePolicy.Ignored)
 		self.view_h_gcode_button.setToolTip(
 			_("View/Edit the probing GCode.")
@@ -2598,7 +2587,7 @@ class CNCObjectUI(ObjectUI):
 
 		# Save Button
 		self.export_gcode_button = FCButton(_('Save CNC Code'))
-		self.export_gcode_button.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.export_gcode_button.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.export_gcode_button.setToolTip(
 			_("Opens dialog to save G-Code\n"
 			  "file.")
@@ -2608,7 +2597,7 @@ class CNCObjectUI(ObjectUI):
 
 		self.review_gcode_button = QtWidgets.QToolButton()
 		self.review_gcode_button.setToolTip(_("Review CNC Code."))
-		self.review_gcode_button.setIcon(QtGui.QIcon(self.app.resource_location + '/find32.png'))
+		self.review_gcode_button.setIcon(QtGui.QIcon(':/images/find32.png'))
 		g_export_lay.addWidget(self.review_gcode_button)
 
 		self.custom_box.addStretch()
@@ -2657,10 +2646,8 @@ class ScriptObjectUI(ObjectUI):
 		self.decimals = app.decimals
 		self.app = app
 
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
-
 		ObjectUI.__init__(self, title=_('Script Object'),
-						  icon_file=self.resource_loc + '/script_new24.png',
+						  icon_file=':/images/script_new24.png',
 						  parent=parent,
 						  common=False,
 						  app=self.app)
@@ -2715,10 +2702,8 @@ class DocumentObjectUI(ObjectUI):
 		self.decimals = app.decimals
 		self.app = app
 
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
-
 		ObjectUI.__init__(self, title=_('Document Object'),
-						  icon_file=self.resource_loc + '/notes16_1.png',
+						  icon_file=':/images/notes16_1.png',
 						  parent=parent,
 						  common=False,
 						  app=self.app)
@@ -2802,16 +2787,16 @@ class DocumentObjectUI(ObjectUI):
 
 		self.font_bold_tb = QtWidgets.QToolButton()
 		self.font_bold_tb.setCheckable(True)
-		self.font_bold_tb.setIcon(QtGui.QIcon(self.resource_loc + '/bold32.png'))
+		self.font_bold_tb.setIcon(QtGui.QIcon(':/images/bold32.png'))
 		size_hlay.addWidget(self.font_bold_tb)
 
 		self.font_italic_tb = QtWidgets.QToolButton()
 		self.font_italic_tb.setCheckable(True)
-		self.font_italic_tb.setIcon(QtGui.QIcon(self.resource_loc + '/italic32.png'))
+		self.font_italic_tb.setIcon(QtGui.QIcon(':/images/italic32.png'))
 		size_hlay.addWidget(self.font_italic_tb)
 		self.font_under_tb = QtWidgets.QToolButton()
 		self.font_under_tb.setCheckable(True)
-		self.font_under_tb.setIcon(QtGui.QIcon(self.resource_loc + '/underline32.png'))
+		self.font_under_tb.setIcon(QtGui.QIcon(':/images/underline32.png'))
 		size_hlay.addWidget(self.font_under_tb)
 
 		self.form_box.addRow(self.font_size_label, size_hlay)
@@ -2823,22 +2808,22 @@ class DocumentObjectUI(ObjectUI):
 
 		self.al_left_tb = QtWidgets.QToolButton()
 		self.al_left_tb.setToolTip(_("Align Left"))
-		self.al_left_tb.setIcon(QtGui.QIcon(self.resource_loc + '/align_left32.png'))
+		self.al_left_tb.setIcon(QtGui.QIcon(':/images/align_left32.png'))
 		al_hlay.addWidget(self.al_left_tb)
 
 		self.al_center_tb = QtWidgets.QToolButton()
 		self.al_center_tb.setToolTip(_("Center"))
-		self.al_center_tb.setIcon(QtGui.QIcon(self.resource_loc + '/align_center32.png'))
+		self.al_center_tb.setIcon(QtGui.QIcon(':/images/align_center32.png'))
 		al_hlay.addWidget(self.al_center_tb)
 
 		self.al_right_tb = QtWidgets.QToolButton()
 		self.al_right_tb.setToolTip(_("Align Right"))
-		self.al_right_tb.setIcon(QtGui.QIcon(self.resource_loc + '/align_right32.png'))
+		self.al_right_tb.setIcon(QtGui.QIcon(':/images/align_right32.png'))
 		al_hlay.addWidget(self.al_right_tb)
 
 		self.al_justify_tb = QtWidgets.QToolButton()
 		self.al_justify_tb.setToolTip(_("Justify"))
-		self.al_justify_tb.setIcon(QtGui.QIcon(self.resource_loc + '/align_justify32.png'))
+		self.al_justify_tb.setIcon(QtGui.QIcon(':/images/align_justify32.png'))
 		al_hlay.addWidget(self.al_justify_tb)
 
 		self.form_box.addRow(self.alignment_label, al_hlay)

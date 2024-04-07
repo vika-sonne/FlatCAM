@@ -24,13 +24,11 @@ import math
 import logging
 from copy import deepcopy
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -247,7 +245,7 @@ class DrillAdd(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_drill.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_drill.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		geo = self.utility_geometry(data=(self.draw_app.snap_x, self.draw_app.snap_y))
@@ -365,7 +363,7 @@ class DrillArray(FCShapeTool):
 		except Exception:
 			pass
 
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_drill_array.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_drill_array.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		geo = self.utility_geometry(data=(self.draw_app.snap_x, self.draw_app.snap_y), static=True)
@@ -664,7 +662,7 @@ class SlotAdd(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_slot.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_slot.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.steps_per_circ = self.draw_app.app.defaults["geometry_circle_steps"]
@@ -878,7 +876,7 @@ class SlotArray(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_array.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_array.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.steps_per_circ = self.draw_app.app.defaults["geometry_circle_steps"]
@@ -3922,7 +3920,7 @@ class AppExcEditorUI:
 		self.ui_vertical_lay.addLayout(self.title_box)
 
 		# Page Title
-		pixmap = QtGui.QPixmap(self.app.resource_location + '/flatcam_icon32.png')
+		pixmap = QtGui.QPixmap(':/images/flatcam_icon32.png')
 		self.icon = FCLabel()
 		self.icon.setPixmap(pixmap)
 
@@ -3968,7 +3966,7 @@ class AppExcEditorUI:
 		self.ui_vertical_lay.addWidget(separator_line)
 
 		self.convert_slots_btn = FCButton('%s' % _("Convert Slots"))
-		self.convert_slots_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/convert32.png'))
+		self.convert_slots_btn.setIcon(QtGui.QIcon(':/images/convert32.png'))
 
 		self.convert_slots_btn.setToolTip(
 			_("Convert the slots in the selected tools to drills.")
@@ -4012,7 +4010,7 @@ class AppExcEditorUI:
 
 		# Tool Diameter Button
 		self.addtool_btn = FCButton(_('Add'))
-		self.addtool_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.addtool_btn.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.addtool_btn.setToolTip(
 			_("Add a new tool to the tool list\n"
 			  "with the diameter specified above.")
@@ -4024,7 +4022,7 @@ class AppExcEditorUI:
 
 		# Delete Tool
 		self.deltool_btn = FCButton(_('Delete Tool'))
-		self.deltool_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/trash32.png'))
+		self.deltool_btn.setIcon(QtGui.QIcon(':/images/trash32.png'))
 		self.deltool_btn.setToolTip(
 			_("Delete a tool in the tool list\n"
 			  "by selecting a row in the tool table.")
@@ -4074,7 +4072,7 @@ class AppExcEditorUI:
 
 		# Resize Button
 		self.resize_btn = FCButton(_('Resize'))
-		self.resize_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/resize16.png'))
+		self.resize_btn.setIcon(QtGui.QIcon(':/images/resize16.png'))
 		self.resize_btn.setToolTip(
 			_("Resize drill(s)")
 		)
@@ -4458,7 +4456,7 @@ class AppExcEditorUI:
 
 		# Editor
 		self.exit_editor_button = FCButton(_('Exit Editor'))
-		self.exit_editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/power16.png'))
+		self.exit_editor_button.setIcon(QtGui.QIcon(':/images/power16.png'))
 		self.exit_editor_button.setToolTip(
 			_("Exit from Editor.")
 		)

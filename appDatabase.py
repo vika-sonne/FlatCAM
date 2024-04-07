@@ -10,13 +10,11 @@ from copy import deepcopy
 from datetime import datetime
 import math
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class ToolsDB2UI:
@@ -1304,7 +1302,7 @@ class ToolsDB2UI:
 		self.buttons_frame.show()
 
 		self.add_entry_btn = FCButton(_("Add Tool in DB"))
-		self.add_entry_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.add_entry_btn.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.add_entry_btn.setToolTip(
 			_("Add a new tool in the Tools Database.\n"
 			  "It will be used in the Geometry UI.\n"
@@ -1321,28 +1319,28 @@ class ToolsDB2UI:
 		# self.buttons_box.addWidget(add_fct_entry_btn)
 
 		self.remove_entry_btn = FCButton(_("Delete Tool from DB"))
-		self.remove_entry_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/trash16.png'))
+		self.remove_entry_btn.setIcon(QtGui.QIcon(':/images/trash16.png'))
 		self.remove_entry_btn.setToolTip(
 			_("Remove a selection of tools in the Tools Database.")
 		)
 		self.buttons_box.addWidget(self.remove_entry_btn)
 
 		self.export_db_btn = FCButton(_("Export DB"))
-		self.export_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/export.png'))
+		self.export_db_btn.setIcon(QtGui.QIcon(':/images/export.png'))
 		self.export_db_btn.setToolTip(
 			_("Save the Tools Database to a custom text file.")
 		)
 		self.buttons_box.addWidget(self.export_db_btn)
 
 		self.import_db_btn = FCButton(_("Import DB"))
-		self.import_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/import.png'))
+		self.import_db_btn.setIcon(QtGui.QIcon(':/images/import.png'))
 		self.import_db_btn.setToolTip(
 			_("Load the Tools Database information's from a custom text file.")
 		)
 		self.buttons_box.addWidget(self.import_db_btn)
 
 		self.save_db_btn = FCButton(_("Save DB"))
-		self.save_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.save_db_btn.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.save_db_btn.setToolTip(
 			_("Save the Tools Database information's.")
 		)
@@ -1643,18 +1641,18 @@ class ToolsDB2(QtWidgets.QWidget):
 	def on_menu_request(self, pos):
 
 		menu = QtWidgets.QMenu()
-		add_tool = menu.addAction(QtGui.QIcon(self.app.resource_location + '/plus16.png'), _("Add to DB"))
+		add_tool = menu.addAction(QtGui.QIcon(':/images/plus16.png'), _("Add to DB"))
 		add_tool.triggered.connect(self.on_tool_add)
 
-		copy_tool = menu.addAction(QtGui.QIcon(self.app.resource_location + '/copy16.png'), _("Copy from DB"))
+		copy_tool = menu.addAction(QtGui.QIcon(':/images/copy16.png'), _("Copy from DB"))
 		copy_tool.triggered.connect(self.on_tool_copy)
 
-		delete_tool = menu.addAction(QtGui.QIcon(self.app.resource_location + '/delete32.png'), _("Delete from DB"))
+		delete_tool = menu.addAction(QtGui.QIcon(':/images/delete32.png'), _("Delete from DB"))
 		delete_tool.triggered.connect(self.on_tool_delete)
 
 		# sep = menu.addSeparator()
 
-		save_changes = menu.addAction(QtGui.QIcon(self.app.resource_location + '/save_as.png'), _("Save changes"))
+		save_changes = menu.addAction(QtGui.QIcon(':/images/save_as.png'), _("Save changes"))
 		save_changes.triggered.connect(self.on_save_changes)
 
 		# tree_item = self.ui.tree_widget.itemAt(pos)
@@ -2939,11 +2937,11 @@ class ToolsDB2(QtWidgets.QWidget):
 #
 #         self.table_widget.setupContextMenu()
 #         self.table_widget.addContextMenu(
-#             _("Add to DB"), self.on_tool_add, icon=QtGui.QIcon(self.app.resource_location + "/plus16.png"))
+#             _("Add to DB"), self.on_tool_add, icon=QtGui.QIcon(':/images/plus16.png'))
 #         self.table_widget.addContextMenu(
-#             _("Copy from DB"), self.on_tool_copy, icon=QtGui.QIcon(self.app.resource_location + "/copy16.png"))
+#             _("Copy from DB"), self.on_tool_copy, icon=QtGui.QIcon(':/images/copy16.png'))
 #         self.table_widget.addContextMenu(
-#             _("Delete from DB"), self.on_tool_delete, icon=QtGui.QIcon(self.app.resource_location + "/delete32.png"))
+#             _("Delete from DB"), self.on_tool_delete, icon=QtGui.QIcon(':/images/delete32.png'))
 #
 #     def build_db_ui(self):
 #         self.ui_disconnect()

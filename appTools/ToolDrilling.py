@@ -26,14 +26,12 @@ import re
 from matplotlib.backend_bases import KeyEvent as mpl_key_event
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 import platform
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -2096,7 +2094,7 @@ class DrillingUI:
 
 		# Manual Load of Tools from DB
 		self.search_load_db_btn = FCButton(_("Search DB"))
-		self.search_load_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/search_db32.png'))
+		self.search_load_db_btn.setIcon(QtGui.QIcon(':/images/search_db32.png'))
 		self.search_load_db_btn.setToolTip(
 			_("Will search and try to replace the tools from Tools Table\n"
 			  "with tools from DB that have a close diameter value.")
@@ -2362,7 +2360,7 @@ class DrillingUI:
 		self.grid3.addWidget(separator_line2, 0, 0, 1, 2)
 
 		self.apply_param_to_all = FCButton(_("Apply parameters to all tools"))
-		self.apply_param_to_all.setIcon(QtGui.QIcon(self.app.resource_location + '/param_all32.png'))
+		self.apply_param_to_all.setIcon(QtGui.QIcon(':/images/param_all32.png'))
 		self.apply_param_to_all.setToolTip(
 			_("The parameters in the current form will be applied\n"
 			  "on all the tools from the Tool Table.")
@@ -2627,7 +2625,7 @@ class DrillingUI:
 		self.tools_box.addLayout(self.grid4)
 
 		self.generate_cnc_button = QtWidgets.QPushButton(_('Generate CNCJob object'))
-		self.generate_cnc_button.setIcon(QtGui.QIcon(self.app.resource_location + '/cnc16.png'))
+		self.generate_cnc_button.setIcon(QtGui.QIcon(':/images/cnc16.png'))
 		self.generate_cnc_button.setToolTip(
 			_("Generate the CNC Job.\n"
 			  "If milling then an additional Geometry object will be created.\n"
@@ -2647,7 +2645,7 @@ class DrillingUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

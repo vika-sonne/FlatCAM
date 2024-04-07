@@ -2,7 +2,6 @@ import os
 import stat
 import sys
 import logging
-import gettext
 import builtins
 from copy import deepcopy
 from appCommon.Common import LoudDict
@@ -15,9 +14,8 @@ from appParsers.ParseGerber import Gerber
 from settings import DEFAULT_THEME, is_theme_black
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 # log = logging.getLogger('FlatCAMDefaults')
 log = logging.getLogger('base')
 

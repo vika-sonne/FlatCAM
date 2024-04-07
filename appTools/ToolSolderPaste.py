@@ -24,13 +24,11 @@ from shapely.ops import unary_union
 import traceback
 from io import StringIO
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class SolderPaste(AppTool):
@@ -67,7 +65,7 @@ class SolderPaste(AppTool):
 		self.flat_geometry = []
 
 		# action to be added in the combobox context menu
-		self.combo_context_del_action = QtWidgets.QAction(QtGui.QIcon(self.app.resource_location + '/trash16.png'),
+		self.combo_context_del_action = QtWidgets.QAction(QtGui.QIcon(':/images/trash16.png'),
 														  _("Delete Object"))
 
 		# ## Signals
@@ -122,7 +120,7 @@ class SolderPaste(AppTool):
 		tool_add_popup = FCInputSpinner(title='%s...' % _("New Tool"),
 										text='%s:' % _('Enter a Tool Diameter'),
 										min=0.0000, max=100.0000, decimals=self.decimals, step=0.1)
-		tool_add_popup.setWindowIcon(QtGui.QIcon(self.app.resource_location + '/letter_t_32.png'))
+		tool_add_popup.setWindowIcon(QtGui.QIcon(':/images/letter_t_32.png'))
 
 		val, ok = tool_add_popup.get_value()
 		if ok:
@@ -158,11 +156,11 @@ class SolderPaste(AppTool):
 		self.ui.tools_table.setupContextMenu()
 		self.ui.tools_table.addContextMenu(
 			_("Add"), lambda: self.on_tool_add(dia=None, muted=None),
-			icon=QtGui.QIcon(self.app.resource_location + "/plus16.png"))
+			icon=QtGui.QIcon(':/images/plus16.png'))
 		self.ui.tools_table.addContextMenu(
 			_("Delete"), lambda:
 			self.on_tool_delete(rows_to_delete=None, all_tools=None),
-			icon=QtGui.QIcon(self.app.resource_location + "/delete32.png")
+			icon=QtGui.QIcon(':/images/delete32.png')
 		)
 
 		try:
@@ -1557,7 +1555,7 @@ class SolderUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

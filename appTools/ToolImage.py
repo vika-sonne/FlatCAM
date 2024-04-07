@@ -10,13 +10,11 @@ from PyQt5 import QtGui, QtWidgets
 from appTool import AppTool
 from appGUI.GUIElements import RadioSet, FCComboBox, FCSpinner
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class ToolImage(AppTool):
@@ -189,8 +187,8 @@ class ImageUI:
 		self.tf_type_obj_combo = FCComboBox()
 		self.tf_type_obj_combo.addItems([_("Gerber"), _("Geometry")])
 
-		self.tf_type_obj_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.tf_type_obj_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/geometry16.png"))
+		self.tf_type_obj_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.tf_type_obj_combo.setItemIcon(1, QtGui.QIcon(':/images/geometry16.png'))
 
 		self.tf_type_obj_combo_label = QtWidgets.QLabel('%s:' % _("Object Type"))
 		self.tf_type_obj_combo_label.setToolTip(

@@ -12,7 +12,6 @@
 # File modified by: Marius Stanciu                         #
 # ##########################################################
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 import re
@@ -31,9 +30,8 @@ from appObjects.FlatCAMGerber import GerberObject
 from appObjects.FlatCAMScript import ScriptObject
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -243,12 +241,12 @@ class ObjectCollection(QtCore.QAbstractItemModel):
 	}
 
 	icon_files = {
-		"gerber": "assets/resources/flatcam_icon16.png",
-		"excellon": "assets/resources/drill16.png",
-		"cncjob": "assets/resources/cnc16.png",
-		"geometry": "assets/resources/geometry16.png",
-		"script": "assets/resources/script_new16.png",
-		"document": "assets/resources/notes16_1.png"
+		"gerber": ':/images/flatcam_icon16.png',
+		"excellon": ':/images/drill16.png',
+		"cncjob": ':/images/cnc16.png',
+		"geometry": ':/images/geometry16.png',
+		"script": ':/images/script_new16.png',
+		"document": ':/images/notes16_1.png'
 	}
 
 	# will emit the name of the object that was just selected
@@ -267,8 +265,7 @@ class ObjectCollection(QtCore.QAbstractItemModel):
 		# ## Icons for the list view
 		self.icons = {}
 		for kind in ObjectCollection.icon_files:
-			self.icons[kind] = QtGui.QPixmap(
-				ObjectCollection.icon_files[kind].replace('assets/resources', self.app.resource_location))
+			self.icons[kind] = QtGui.QPixmap(ObjectCollection.icon_files[kind])
 
 		# Create root tree view item
 		self.root_item = TreeItem(["root"])
@@ -1044,12 +1041,12 @@ class ObjectCollection(QtCore.QAbstractItemModel):
 		:return:            None
 		"""
 		icon_files = {
-			"gerber": self.app.resource_location + "/flatcam_icon16.png",
-			"excellon": self.app.resource_location + "/drill16.png",
-			"cncjob": self.app.resource_location + "/cnc16.png",
-			"geometry": self.app.resource_location + "/geometry16.png",
-			"script": self.app.resource_location + "/script_new16.png",
-			"document": self.app.resource_location + "/notes16_1.png"
+			"gerber": ':/images/flatcam_icon16.png',
+			"excellon": ':/images/drill16.png',
+			"cncjob": ':/images/cnc16.png',
+			"geometry": ':/images/geometry16.png',
+			"script": ':/images/script_new16.png',
+			"document": ':/images/notes16_1.png'
 		}
 
 		if state == 'append':
@@ -1118,11 +1115,11 @@ class ObjectCollection(QtCore.QAbstractItemModel):
 
 			self.app.ui.menuobjects.addSeparator()
 			self.app.ui.menuobjects_selall = self.app.ui.menuobjects.addAction(
-				QtGui.QIcon(self.app.resource_location + '/select_all.png'),
+				QtGui.QIcon(':/images/select_all.png'),
 				_('Select All')
 			)
 			self.app.ui.menuobjects_unselall = self.app.ui.menuobjects.addAction(
-				QtGui.QIcon(self.app.resource_location + '/deselect_all32.png'),
+				QtGui.QIcon(':/images/deselect_all32.png'),
 				_('Deselect All')
 			)
 			self.app.ui.menuobjects_selall.triggered.connect(lambda: self.on_objects_selection(True))
@@ -1165,11 +1162,11 @@ class ObjectCollection(QtCore.QAbstractItemModel):
 
 			self.app.ui.menuobjects.addSeparator()
 			self.app.ui.menuobjects_selall = self.app.ui.menuobjects.addAction(
-				QtGui.QIcon(self.app.resource_location + '/select_all.png'),
+				QtGui.QIcon(':/images/select_all.png'),
 				_('Select All')
 			)
 			self.app.ui.menuobjects_unselall = self.app.ui.menuobjects.addAction(
-				QtGui.QIcon(self.app.resource_location + '/deselect_all32.png'),
+				QtGui.QIcon(':/images/deselect_all32.png'),
 				_('Deselect All')
 			)
 			self.app.ui.menuobjects_selall.triggered.connect(lambda: self.on_objects_selection(True))

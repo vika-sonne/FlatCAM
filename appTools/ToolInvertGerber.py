@@ -15,13 +15,11 @@ from shapely.geometry import box
 from copy import deepcopy
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -264,7 +262,7 @@ class InvertUI:
 		grid0.addWidget(separator_line, 9, 0, 1, 2)
 
 		self.invert_btn = FCButton(_('Invert Gerber'))
-		self.invert_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/invert32.png'))
+		self.invert_btn.setIcon(QtGui.QIcon(':/images/invert32.png'))
 		self.invert_btn.setToolTip(
 			_("Will invert the Gerber object: areas that have copper\n"
 			  "will be empty of copper and previous empty area will be\n"
@@ -282,7 +280,7 @@ class InvertUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

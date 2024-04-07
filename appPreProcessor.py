@@ -6,17 +6,17 @@
 # MIT Licence                                              #
 # ##########################################################
 
-from importlib.machinery import SourceFileLoader
-import os
 from abc import ABCMeta, abstractmethod
-import math
 
 # module-root dictionary of preprocessors
 
 import logging
 
+
+SEARCH_PATH = 'preprocessors'
+
 log = logging.getLogger('base')
-preprocessors = {}
+preprocessors: dict[str, object] = {}  # preprocessor classes
 
 
 class ABCPreProcRegister(ABCMeta):
@@ -25,7 +25,9 @@ class ABCPreProcRegister(ABCMeta):
 		newclass = super(ABCPreProcRegister, cls).__new__(cls, clsname, bases, attrs)
 		if object not in bases:
 			if newclass.__name__ in preprocessors:
-				log.warning('Preprocessor %s has been overriden' % newclass.__name__)
+				log.warning(f'Preprocessor has been overriden: {newclass.__name__}')
+			else:
+				log.info(f'Add preprocessor: {newclass.__name__}')
 			preprocessors[newclass.__name__] = newclass()  # here is your register function
 		return newclass
 
@@ -146,16 +148,17 @@ class AppPreProcTools(object, metaclass=ABCPreProcRegister):
 		pass
 
 
-def load_preprocessors(app):
-	preprocessors_path_search = [
-		os.path.join(app.data_path, 'preprocessors', '*.py'),
-		os.path.join('preprocessors', '*.py')
-	]
-	import glob
-	for path_search in preprocessors_path_search:
-		for file in glob.glob(path_search):
-			try:
-				SourceFileLoader('FlatCAMPostProcessor', file).load_module()
-			except Exception as e:
-				app.log.error(str(e))
+def load_preprocessors():
+	# searches in subfolder and loads modules with classes inherited with ABCPreProcRegister
+	from sys import modules
+	from importlib import resources
+	from importlib.util import find_spec
+	from pathlib import Path
+
+	for p in (Path(x.name) for x in resources.files(SEARCH_PATH).iterdir() if x.is_file()):
+		if p.suffix == '.py' and p.stem != '__init__':
+			module_name = f'{SEARCH_PATH}.{p.stem}'
+			spec = find_spec(module_name)
+			modules[module_name] = spec.loader.load_module(module_name)
+
 	return preprocessors

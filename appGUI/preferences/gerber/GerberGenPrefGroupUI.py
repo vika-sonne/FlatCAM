@@ -4,13 +4,11 @@ from PyQt5.QtCore import QSettings
 from appGUI.GUIElements import FCCheckBox, FCSpinner, RadioSet, FCButton, FCSliderWithSpinner, FCColorEntry
 from appGUI.preferences.OptionsGroupUI import OptionsGroupUI
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):
@@ -150,7 +148,7 @@ class GerberGenPrefGroupUI(OptionsGroupUI):
 
 		# Clear stored colors
 		self.clear_colors_button = FCButton('%s' % _('Clear Colors'))
-		self.clear_colors_button.setIcon(QtGui.QIcon(self.app.resource_location + '/trash32.png'))
+		self.clear_colors_button.setIcon(QtGui.QIcon(':/images/trash32.png'))
 		self.clear_colors_button.setToolTip(
 			_("Reset the colors associated with Gerber objects.")
 		)

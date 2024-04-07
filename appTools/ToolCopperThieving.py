@@ -22,13 +22,11 @@ from copy import deepcopy
 import numpy as np
 from collections.abc import Iterable
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -1522,7 +1520,7 @@ class ThievingUI:
 
 		# ## Insert Copper Thieving
 		self.fill_button = QtWidgets.QPushButton(_("Insert Copper thieving"))
-		self.fill_button.setIcon(QtGui.QIcon(self.app.resource_location + '/copperfill32.png'))
+		self.fill_button.setIcon(QtGui.QIcon(':/images/copperfill32.png'))
 		self.fill_button.setToolTip(
 			_("Will add a polygon (may be split in multiple parts)\n"
 			  "that will surround the actual Gerber traces at a certain distance.")
@@ -1584,7 +1582,7 @@ class ThievingUI:
 
 		# ## Insert Robber Bar
 		self.rb_button = QtWidgets.QPushButton(_("Insert Robber Bar"))
-		self.rb_button.setIcon(QtGui.QIcon(self.app.resource_location + '/robber32.png'))
+		self.rb_button.setIcon(QtGui.QIcon(':/images/robber32.png'))
 		self.rb_button.setToolTip(
 			_("Will add a polygon with a defined thickness\n"
 			  "that will surround the actual Gerber object\n"
@@ -1678,7 +1676,7 @@ class ThievingUI:
 
 		# ## Pattern Plating Mask
 		self.ppm_button = QtWidgets.QPushButton(_("Generate pattern plating mask"))
-		self.ppm_button.setIcon(QtGui.QIcon(self.app.resource_location + '/pattern32.png'))
+		self.ppm_button.setIcon(QtGui.QIcon(':/images/pattern32.png'))
 		self.ppm_button.setToolTip(
 			_("Will add to the soldermask gerber geometry\n"
 			  "the geometries of the copper thieving and/or\n"
@@ -1696,7 +1694,7 @@ class ThievingUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

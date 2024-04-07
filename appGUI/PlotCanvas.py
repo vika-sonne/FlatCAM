@@ -9,7 +9,6 @@
 # File modified by: vika-sonne, 2023                       #
 # ##########################################################
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 import logging
@@ -23,9 +22,8 @@ from appGUI.VisPyVisuals import ShapeGroup, ShapeCollection, TextCollection, Tex
 from settings import is_theme_white
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 

@@ -14,13 +14,11 @@ from reportlab.lib.units import inch, mm
 
 # from io import StringIO
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class AppTextEditor(QtWidgets.QWidget):
@@ -82,7 +80,7 @@ class AppTextEditor(QtWidgets.QWidget):
 
 		# FIND
 		self.buttonFind = FCButton(_('Find'))
-		self.buttonFind.setIcon(QtGui.QIcon(self.app.resource_location + '/find32.png'))
+		self.buttonFind.setIcon(QtGui.QIcon(':/images/find32.png'))
 		self.buttonFind.setToolTip(_("Will search and highlight in yellow the string in the Find box."))
 		control_lay.addWidget(self.buttonFind)
 
@@ -93,7 +91,7 @@ class AppTextEditor(QtWidgets.QWidget):
 
 		# REPLACE
 		self.buttonReplace = FCButton(_('Replace With'))
-		self.buttonReplace.setIcon(QtGui.QIcon(self.app.resource_location + '/replace32.png'))
+		self.buttonReplace.setIcon(QtGui.QIcon(':/images/replace32.png'))
 		self.buttonReplace.setToolTip(_("Will replace the string from the Find box with the one in the Replace box."))
 		control_lay.addWidget(self.buttonReplace)
 
@@ -110,38 +108,38 @@ class AppTextEditor(QtWidgets.QWidget):
 
 		# COPY All
 		# self.button_copy_all = FCButton(_('Copy All'))
-		# self.button_copy_all.setIcon(QtGui.QIcon(self.app.resource_location + '/copy_file32.png'))
+		# self.button_copy_all.setIcon(QtGui.QIcon(':/images/copy_file32.png'))
 		# self.button_copy_all.setToolTip(_("Will copy all the text in the Code Editor to the clipboard."))
 		# control_lay.addWidget(self.button_copy_all)
 
 		# Update
 		self.button_update_code = QtWidgets.QToolButton()
-		self.button_update_code.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.button_update_code.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.button_update_code.setToolTip(_("Save changes internally."))
 		self.button_update_code.hide()
 		control_lay.addWidget(self.button_update_code)
 
 		# Print PREVIEW
 		self.buttonPreview = QtWidgets.QToolButton()
-		self.buttonPreview.setIcon(QtGui.QIcon(self.app.resource_location + '/preview32.png'))
+		self.buttonPreview.setIcon(QtGui.QIcon(':/images/preview32.png'))
 		self.buttonPreview.setToolTip(_("Open a OS standard Preview Print window."))
 		control_lay.addWidget(self.buttonPreview)
 
 		# PRINT
 		self.buttonPrint = QtWidgets.QToolButton()
-		self.buttonPrint.setIcon(QtGui.QIcon(self.app.resource_location + '/printer32.png'))
+		self.buttonPrint.setIcon(QtGui.QIcon(':/images/printer32.png'))
 		self.buttonPrint.setToolTip(_("Open a OS standard Print window."))
 		control_lay.addWidget(self.buttonPrint)
 
 		# OPEN
 		self.buttonOpen = QtWidgets.QToolButton()
-		self.buttonOpen.setIcon(QtGui.QIcon(self.app.resource_location + '/folder32_bis.png'))
+		self.buttonOpen.setIcon(QtGui.QIcon(':/images/folder32_bis.png'))
 		self.buttonOpen.setToolTip(_("Will open a text file in the editor."))
 		control_lay.addWidget(self.buttonOpen)
 
 		# SAVE
 		self.buttonSave = QtWidgets.QToolButton()
-		self.buttonSave.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.buttonSave.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.buttonSave.setToolTip(_("Will save the text in the editor into a file."))
 		control_lay.addWidget(self.buttonSave)
 
@@ -186,7 +184,7 @@ class AppTextEditor(QtWidgets.QWidget):
 		# self.ui.buttonPreview.setEnabled(enable)
 
 		self.buttonSave.setStyleSheet("QPushButton {color: red;}")
-		self.buttonSave.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as_red.png'))
+		self.buttonSave.setIcon(QtGui.QIcon(':/images/save_as_red.png'))
 
 	def load_text(self, text, move_to_start=False, move_to_end=False, clear_text=True, as_html=False):
 		self.code_editor.textChanged.disconnect()
@@ -305,7 +303,7 @@ class AppTextEditor(QtWidgets.QWidget):
 						for line in my_gcode:
 							f.write(line)
 				self.buttonSave.setStyleSheet("")
-				self.buttonSave.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+				self.buttonSave.setIcon(QtGui.QIcon(':/images/save_as.png'))
 			except FileNotFoundError:
 				self.app.inform.emit('[WARNING] %s' % _("No such file or directory"))
 				return

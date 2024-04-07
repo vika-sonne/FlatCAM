@@ -13,7 +13,6 @@
 
 import math
 import logging
-import gettext
 import builtins
 from copy import copy
 from PyQt5 import QtWidgets, QtCore
@@ -28,9 +27,8 @@ from appGUI.GUIElements import FCEntry, FCButton, FCCheckBox, FCLabel
 from settings import is_theme_white
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 

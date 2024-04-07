@@ -15,13 +15,11 @@ import logging
 from shapely.geometry import MultiPolygon, Point
 from shapely.ops import unary_union
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -1289,7 +1287,7 @@ class PunchUI:
 
 		# Buttons
 		self.punch_object_button = QtWidgets.QPushButton(_("Punch Gerber"))
-		self.punch_object_button.setIcon(QtGui.QIcon(self.app.resource_location + '/punch32.png'))
+		self.punch_object_button.setIcon(QtGui.QIcon(':/images/punch32.png'))
 		self.punch_object_button.setToolTip(
 			_("Create a Gerber object from the selected object, within\n"
 			  "the specified box.")
@@ -1306,7 +1304,7 @@ class PunchUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

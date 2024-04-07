@@ -28,13 +28,11 @@ from xml.dom.minidom import parseString as parse_xml_string
 from lxml import etree as ET
 from io import StringIO
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -1366,7 +1364,7 @@ class FilmUI:
 
 		# Buttons
 		self.film_object_button = FCButton(_("Save Film"))
-		self.film_object_button.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.film_object_button.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.film_object_button.setToolTip(
 			_("Create a Film for the selected object, within\n"
 			  "the specified box. Does not create a new \n "
@@ -1385,7 +1383,7 @@ class FilmUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

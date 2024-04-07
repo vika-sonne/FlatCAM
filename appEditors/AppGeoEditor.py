@@ -33,13 +33,11 @@ from rtree import index as rtindex
 
 from copy import deepcopy
 # from vispy.io import read_png
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -305,12 +303,12 @@ class TextInputTool(AppTool):
 
 		self.font_bold_tb = QtWidgets.QToolButton()
 		self.font_bold_tb.setCheckable(True)
-		self.font_bold_tb.setIcon(QtGui.QIcon(self.app.resource_location + '/bold32.png'))
+		self.font_bold_tb.setIcon(QtGui.QIcon(':/images/bold32.png'))
 		hlay.addWidget(self.font_bold_tb)
 
 		self.font_italic_tb = QtWidgets.QToolButton()
 		self.font_italic_tb.setCheckable(True)
-		self.font_italic_tb.setIcon(QtGui.QIcon(self.app.resource_location + '/italic32.png'))
+		self.font_italic_tb.setIcon(QtGui.QIcon(':/images/italic32.png'))
 		hlay.addWidget(self.font_italic_tb)
 
 		self.form_layout.addRow(FCLabel('%s:' % _("Size")), hlay)
@@ -1450,7 +1448,7 @@ class TransformEditorTool(AppTool):
 									   min=-359.9999, max=360.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_rotate']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/rotate.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/rotate.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -1468,7 +1466,7 @@ class TransformEditorTool(AppTool):
 									   min=-10000.0000, max=10000.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_offset_x']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/offsetx32.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/offsetx32.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -1486,7 +1484,7 @@ class TransformEditorTool(AppTool):
 									   min=-10000.0000, max=10000.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_offset_y']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/offsety32.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/offsety32.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -1502,7 +1500,7 @@ class TransformEditorTool(AppTool):
 									   min=-359.9999, max=360.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_skew_x']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/skewX.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/skewX.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -1518,7 +1516,7 @@ class TransformEditorTool(AppTool):
 									   min=-359.9999, max=360.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_skew_y']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/skewY.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/skewY.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -1952,7 +1950,7 @@ class FCCircle(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_circle_geo.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_circle_geo.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.jump_signal.connect(lambda x: self.draw_app.update_utility_geometry(data=x))
@@ -2025,7 +2023,7 @@ class FCArc(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_arc.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_arc.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.inform.emit(_("Click on Center point ..."))
@@ -2268,7 +2266,7 @@ class FCRectangle(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.jump_signal.connect(lambda x: self.draw_app.update_utility_geometry(data=x))
@@ -2341,7 +2339,7 @@ class FCPolygon(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.jump_signal.connect(lambda x: self.draw_app.update_utility_geometry(data=x))
@@ -2428,7 +2426,7 @@ class FCPath(FCPolygon):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path5.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path5.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.jump_signal.connect(lambda x: self.draw_app.update_utility_geometry(data=x))
@@ -2877,7 +2875,7 @@ class FCText(FCShapeTool):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_text.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_text.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.app = draw_app.app
@@ -3281,7 +3279,7 @@ class AppGeoEditor(QtCore.QObject):
 		self.tools_box.addLayout(self.title_box)
 
 		# ## Page Title icon
-		pixmap = QtGui.QPixmap(self.app.resource_location + '/flatcam_icon32.png')
+		pixmap = QtGui.QPixmap(':/images/flatcam_icon32.png')
 		self.icon = FCLabel()
 		self.icon.setPixmap(pixmap)
 		self.title_box.addWidget(self.icon, stretch=0)
@@ -3308,7 +3306,7 @@ class AppGeoEditor(QtCore.QObject):
 
 		# Editor
 		self.exit_editor_button = FCButton(_('Exit Editor'))
-		self.exit_editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/power16.png'))
+		self.exit_editor_button.setIcon(QtGui.QIcon(':/images/power16.png'))
 		self.exit_editor_button.setToolTip(
 			_("Exit from Editor.")
 		)

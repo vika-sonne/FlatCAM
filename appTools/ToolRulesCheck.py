@@ -17,13 +17,11 @@ from shapely.ops import nearest_points
 from shapely.geometry import MultiPolygon, Polygon
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -1607,7 +1605,7 @@ class RulesUI:
 
 		# hlay_2.addStretch()
 		self.run_button = FCButton(_("Run Rules Check"))
-		self.run_button.setIcon(QtGui.QIcon(self.app.resource_location + '/rules32.png'))
+		self.run_button.setIcon(QtGui.QIcon(':/images/rules32.png'))
 		self.run_button.setToolTip(
 			_("Panelize the specified object around the specified box.\n"
 			  "In other words it creates multiple copies of the source object,\n"
@@ -1625,7 +1623,7 @@ class RulesUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

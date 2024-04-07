@@ -16,13 +16,11 @@ from shapely.ops import unary_union
 from copy import deepcopy
 import logging
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -603,7 +601,7 @@ class CornersUI:
 
 		# ## Insert Corner Marker
 		self.add_marker_button = FCButton(_("Add Marker"))
-		self.add_marker_button.setIcon(QtGui.QIcon(self.app.resource_location + '/corners_32.png'))
+		self.add_marker_button.setIcon(QtGui.QIcon(':/images/corners_32.png'))
 		self.add_marker_button.setToolTip(
 			_("Will add corner markers to the selected Gerber file.")
 		)
@@ -639,7 +637,7 @@ class CornersUI:
 
 		# ## Create an Excellon object
 		self.drill_button = FCButton(_("Create Excellon Object"))
-		self.drill_button.setIcon(QtGui.QIcon(self.app.resource_location + '/drill32.png'))
+		self.drill_button.setIcon(QtGui.QIcon(':/images/drill32.png'))
 		self.drill_button.setToolTip(
 			_("Will add drill holes in the center of the markers.")
 		)
@@ -655,7 +653,7 @@ class CornersUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

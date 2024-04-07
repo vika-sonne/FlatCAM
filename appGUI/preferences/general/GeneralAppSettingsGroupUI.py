@@ -1,4 +1,3 @@
-import gettext
 import appTranslation as fcTranslate
 import builtins
 from PyQt5.QtCore import QSettings
@@ -10,9 +9,8 @@ from appGUI.preferences.OptionsGroupUI import OptionsGroupUI2
 from settings import is_theme_white, axis_font_size
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class GeneralAppSettingsGroupUI(OptionsGroupUI2):

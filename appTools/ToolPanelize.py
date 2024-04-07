@@ -19,14 +19,12 @@ import shapely.affinity as affinity
 from shapely.ops import unary_union, linemerge, snap
 from shapely.geometry import LineString, MultiLineString
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 import logging
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -667,9 +665,9 @@ class PanelizeUI:
 		self.type_obj_combo.addItem("Excellon")
 		self.type_obj_combo.addItem("Geometry")
 
-		self.type_obj_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.type_obj_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/drill16.png"))
-		self.type_obj_combo.setItemIcon(2, QtGui.QIcon(self.app.resource_location + "/geometry16.png"))
+		self.type_obj_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.type_obj_combo.setItemIcon(1, QtGui.QIcon(':/images/drill16.png'))
+		self.type_obj_combo.setItemIcon(2, QtGui.QIcon(':/images/geometry16.png'))
 
 		self.type_object_label = FCLabel('%s:' % _("Object Type"))
 
@@ -714,8 +712,8 @@ class PanelizeUI:
 
 		# we get rid of item1 ("Excellon") as it is not suitable for use as a "box" for panelizing
 		# self.type_box_combo.view().setRowHidden(1, True)
-		self.type_box_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.type_box_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/geometry16.png"))
+		self.type_box_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.type_box_combo.setItemIcon(1, QtGui.QIcon(':/images/geometry16.png'))
 
 		self.type_box_combo_label = FCLabel('%s:' % _("Box Type"))
 		self.type_box_combo_label.setToolTip(
@@ -868,7 +866,7 @@ class PanelizeUI:
 
 		# Buttons
 		self.panelize_object_button = FCButton(_("Panelize Object"))
-		self.panelize_object_button.setIcon(QtGui.QIcon(self.app.resource_location + '/panelize16.png'))
+		self.panelize_object_button.setIcon(QtGui.QIcon(':/images/panelize16.png'))
 		self.panelize_object_button.setToolTip(
 			_("Panelize the specified object around the specified box.\n"
 			  "In other words it creates multiple copies of the source object,\n"
@@ -886,7 +884,7 @@ class PanelizeUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

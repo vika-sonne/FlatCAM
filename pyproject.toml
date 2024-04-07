@@ -1,10 +1,10 @@
 [tool.poetry]
-name = "flatcam-2023-5"
-version = "2023.5"
+name = "flatcam-2024-5"
+version = "2024.5"
 description = "2D Computer-Aided PCB Manufacturing for CNC router"
 authors = ["Victoria Danchenko <vika.sonne@rambler.ru>", "Marius Stanciu", "Pablo Caram"]
 readme = "README.md"
-packages = [{include = "flatcam_2023"}]
+packages = [{include = "flatcam_2024"}]
 
 [tool.poetry.dependencies]
 python = ">=3.10.0,<3.11"
@@ -36,6 +36,8 @@ reportlab = "4.0.0"
 svglib = "1.5.1"
 # gdal = "^3.5.1"
 pyserial = "3.5"
+langcodes = ">=3.3.0"
+language_data = ">=1.1"
 
 [build-system]
 requires = ["poetry-core"]

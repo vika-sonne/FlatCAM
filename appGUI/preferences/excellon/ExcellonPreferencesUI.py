@@ -7,13 +7,11 @@ from appGUI.preferences.excellon.ExcellonAdvOptPrefGroupUI import ExcellonAdvOpt
 from appGUI.preferences.excellon.ExcellonOptPrefGroupUI import ExcellonOptPrefGroupUI
 from appGUI.preferences.excellon.ExcellonGenPrefGroupUI import ExcellonGenPrefGroupUI
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):

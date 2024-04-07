@@ -20,16 +20,14 @@ from numpy import Inf
 from copy import deepcopy
 import math
 import logging
-import gettext
 import sys
 import simplejson as json
 
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -2086,7 +2084,7 @@ class CutoutUI:
 
 		# Search and Add new Tool
 		self.add_newtool_button = FCButton(_('Search and Add'))
-		self.add_newtool_button.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.add_newtool_button.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.add_newtool_button.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "with the diameter specified above.\n"
@@ -2098,7 +2096,7 @@ class CutoutUI:
 
 		# Pick from DB new Tool
 		self.addtool_from_db_btn = FCButton(_('Pick from DB'))
-		self.addtool_from_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/search_db32.png'))
+		self.addtool_from_db_btn.setIcon(QtGui.QIcon(':/images/search_db32.png'))
 		self.addtool_from_db_btn.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "from the Tools Database.\n"
@@ -2302,7 +2300,7 @@ class CutoutUI:
 
 		# Buttons
 		self.ff_cutout_object_btn = FCButton(_("Generate Geometry"))
-		self.ff_cutout_object_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/irregular32.png'))
+		self.ff_cutout_object_btn.setIcon(QtGui.QIcon(':/images/irregular32.png'))
 		self.ff_cutout_object_btn.setToolTip(
 			_("Cutout the selected object.\n"
 			  "The cutout shape can be of any shape.\n"
@@ -2317,7 +2315,7 @@ class CutoutUI:
 		grid0.addWidget(self.ff_cutout_object_btn, 44, 0, 1, 2)
 
 		self.rect_cutout_object_btn = FCButton(_("Generate Geometry"))
-		self.rect_cutout_object_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/rectangle32.png'))
+		self.rect_cutout_object_btn.setIcon(QtGui.QIcon(':/images/rectangle32.png'))
 		self.rect_cutout_object_btn.setToolTip(
 			_("Cutout the selected object.\n"
 			  "The resulting cutout shape is\n"
@@ -2357,7 +2355,7 @@ class CutoutUI:
 
 		# Generate a surrounding Geometry object
 		self.man_geo_creation_btn = FCButton(_("Generate Manual Geometry"))
-		self.man_geo_creation_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/rectangle32.png'))
+		self.man_geo_creation_btn.setIcon(QtGui.QIcon(':/images/rectangle32.png'))
 		self.man_geo_creation_btn.setToolTip(
 			_("If the object to be cutout is a Gerber\n"
 			  "first create a Geometry that surrounds it,\n"
@@ -2389,7 +2387,7 @@ class CutoutUI:
 		grid0.addWidget(self.man_object_combo, 56, 0, 1, 2)
 
 		self.man_gaps_creation_btn = FCButton(_("Manual Add Bridge Gaps"))
-		self.man_gaps_creation_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/gaps32.png'))
+		self.man_gaps_creation_btn.setIcon(QtGui.QIcon(':/images/gaps32.png'))
 		self.man_gaps_creation_btn.setToolTip(
 			_("Use the left mouse button (LMB) click\n"
 			  "to create a bridge gap to separate the PCB from\n"
@@ -2409,7 +2407,7 @@ class CutoutUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

@@ -18,13 +18,11 @@ import math
 import logging
 from copy import deepcopy
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -909,7 +907,7 @@ class FidoUI:
 
 		# ## Insert Copper Fiducial
 		self.add_cfid_button = QtWidgets.QPushButton(_("Add Fiducial"))
-		self.add_cfid_button.setIcon(QtGui.QIcon(self.app.resource_location + '/fiducials_32.png'))
+		self.add_cfid_button.setIcon(QtGui.QIcon(':/images/fiducials_32.png'))
 		self.add_cfid_button.setToolTip(
 			_("Will add a polygon on the copper layer to serve as fiducial.")
 		)
@@ -960,7 +958,7 @@ class FidoUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

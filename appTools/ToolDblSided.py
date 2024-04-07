@@ -10,13 +10,11 @@ from shapely.geometry import Point
 from shapely import affinity
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -707,7 +705,7 @@ class DsidedUI:
 
 		# Add a reference
 		self.add_point_button = FCButton(_("Add"))
-		self.add_point_button.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.add_point_button.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.add_point_button.setToolTip(
 			_("Add the coordinates in format <b>(x, y)</b> through which the mirroring axis\n "
 			  "selected in 'MIRROR AXIS' pass.\n"
@@ -787,7 +785,7 @@ class DsidedUI:
 		grid_lay3.addWidget(self.box_combo, 3, 0, 1, 2)
 
 		self.mirror_button = FCButton(_("Mirror"))
-		self.mirror_button.setIcon(QtGui.QIcon(self.app.resource_location + '/doubleside16.png'))
+		self.mirror_button.setIcon(QtGui.QIcon(':/images/doubleside16.png'))
 		self.mirror_button.setToolTip(
 			_("Mirrors (flips) the specified object around \n"
 			  "the specified axis. Does not create a new \n"
@@ -895,7 +893,7 @@ class DsidedUI:
 		grid5.addWidget(self.alignment_holes, 1, 0, 1, 2)
 
 		self.add_drill_point_button = FCButton(_("Add"))
-		self.add_drill_point_button.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.add_drill_point_button.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.add_drill_point_button.setToolTip(
 			_("Add alignment drill holes coordinates in the format: (x1, y1), (x2, y2), ... \n"
 			  "on one side of the alignment axis.\n\n"
@@ -913,7 +911,7 @@ class DsidedUI:
 		#                 """)
 
 		self.delete_drill_point_button = FCButton(_("Delete Last"))
-		self.delete_drill_point_button.setIcon(QtGui.QIcon(self.app.resource_location + '/trash32.png'))
+		self.delete_drill_point_button.setIcon(QtGui.QIcon(':/images/trash32.png'))
 		self.delete_drill_point_button.setToolTip(
 			_("Delete the last coordinates tuple in the list.")
 		)
@@ -926,7 +924,7 @@ class DsidedUI:
 
 		# ## Buttons
 		self.create_alignment_hole_button = FCButton(_("Create Excellon Object"))
-		self.create_alignment_hole_button.setIcon(QtGui.QIcon(self.app.resource_location + '/drill32.png'))
+		self.create_alignment_hole_button.setIcon(QtGui.QIcon(':/images/drill32.png'))
 		self.create_alignment_hole_button.setToolTip(
 			_("Creates an Excellon Object containing the\n"
 			  "specified alignment holes and their mirror\n"
@@ -944,7 +942,7 @@ class DsidedUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

@@ -6,76 +6,49 @@
 # ##########################################################
 
 # ##########################################################
-# File modified by: vika-sonne, 2023                       #
+# File modified by: vika-sonne, 2023, 2024                 #
 # ##########################################################
 
-import os
-import sys
-import logging
+from os import execl
+from sys import executable, argv
+from logging import getLogger
 from pathlib import Path
-import gettext
+from typing import Iterator, Callable
+from importlib import resources
+from importlib.abc import Traversable
+from pickle import loads
+# Qt imports
 from PyQt5 import QtWidgets, QtGui
 from PyQt5.QtCore import QSettings
-# FlatCAM imports
-from settings import is_theme_white
+# misc imports
+from langcodes import Language
 
 
-log = logging.getLogger('base')
+SEARCH_PATH = 'translate'  # path for .bin files
+DEFAULT_LANGUAGE = 'English'
 
-# import builtins
-#
-# if '_' not in builtins.__dict__:
-#     _ = gettext.gettext
+log = getLogger('base')
 
-# ISO639-1 codes from here: https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
-languages_dict = {
-	'zh': 'Chinese',
-	'de': 'German',
-	'en': 'English',
-	'es': 'Spanish',
-	'fr': 'French',
-	'it': 'Italian',
-	'pt_BR': 'Brazilian Portuguese',
-	'ro': 'Romanian',
-	'ru': 'Russian',
-	'tr': 'Turkish',
-}
+translation_dict = {}  # translated phrases
+language_code = None  # current language code
+language_name = None  # current language name
 
-translations = {}
+def gettext(text: str) -> str:
+	return translation_dict.get(text, text)
 
-languages_path_search = ''
+def get_languages_names() -> tuple[str]:
+	return sorted(tuple(Language.get(c).autonym().capitalize() for c, _ in iter_locales()))
 
+def iter_locales() -> Iterator[tuple[str, Traversable]]:
+	'iterates over allowed locales: ISO639-1 language code, Traversable'
+	for p, f in ((Path(x.name), x) for x in resources.files(SEARCH_PATH).iterdir() if x.is_file()):
+		if p.suffix == '.bin':
+			yield p.stem, f
 
-def load_languages():
-	available_translations = []
-	languages_path_search = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale')
+import builtins
 
-	try:
-		available_translations = next(os.walk(languages_path_search))[1]
-	except StopIteration:
-		if not available_translations:
-			languages_path_search = os.path.join(str(Path(__file__).parents[1]), 'locale')
-			try:
-				available_translations = next(os.walk(languages_path_search))[1]
-			except StopIteration:
-				pass
-
-	for lang in available_translations:
-		try:
-			if lang in languages_dict.keys():
-				translations[lang] = languages_dict[lang]
-		except KeyError as e:
-			log.debug("FlatCAMTranslations.load_languages() --> %s" % str(e))
-	return translations
-
-
-def languages_dir():
-	return os.path.join(os.path.dirname(os.path.abspath(__file__)), 'locale')
-
-
-def languages_dir_cx_freeze():
-	return os.path.join(Path(__file__).parents[1], 'locale')
-
+if '_' not in builtins.__dict__:
+    _ = gettext
 
 def on_language_apply_click(app, restart=False):
 	"""
@@ -85,8 +58,6 @@ def on_language_apply_click(app, restart=False):
 	:return:
 	"""
 	name = app.ui.general_defaults_form.general_app_group.language_cb.currentText()
-
-	resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
 
 	# do nothing if trying to apply the language that is the current language (already applied).
 	settings = QSettings("Open Source", "FlatCAM")
@@ -101,7 +72,7 @@ def on_language_apply_click(app, restart=False):
 		msgbox.setInformativeText('%s %s?' %
 								  (_("Are you sure do you want to change the current language to"), name.capitalize()))
 		msgbox.setWindowTitle('%s ...' % _("Apply Language"))
-		msgbox.setWindowIcon(QtGui.QIcon(resource_loc + '/language32.png'))
+		msgbox.setWindowIcon(QtGui.QIcon(':/images/language32.png'))
 		msgbox.setIcon(QtWidgets.QMessageBox.Question)
 
 		bt_yes = msgbox.addButton(_("Yes"), QtWidgets.QMessageBox.YesRole)
@@ -122,48 +93,42 @@ def on_language_apply_click(app, restart=False):
 
 			restart_program(app=app)
 
+def get_current_language_name() -> str:
+	'returns language name from settings; default: English'
 
-def apply_language(domain, lang=None):
-	lang_code = ''
+	settings = QSettings('Open Source', 'FlatCAM')
+	if (ret := settings.value('language', None)):
+		return ret
 
-	if lang is None:
-		settings = QSettings("Open Source", "FlatCAM")
-		if settings.contains("language"):
-			name = settings.value('language')
-		else:
-			name = 'English'
-			# in case the 'language' parameter is not in QSettings add it to QSettings and it's value is
-			# the default language, English
-			settings.setValue('language', 'English')
+	ret = DEFAULT_LANGUAGE
+	# in case the 'language' parameter is not in QSettings add it to QSettings and it's value is
+	# the default language
+	settings.setValue('language', ret)
 
-			# This will write the setting to the platform specific storage.
-			del settings
-	else:
-		name = str(lang)
+	del settings  # this will write the setting to the platform specific storage
 
-	for lang_code, lang_usable in load_languages().items():
-		if lang_usable == name:
-			# break and then use the current key as language
-			break
+	return ret
 
-	if lang_code == '':
-		return "no language"
-	else:
-		try:
-			current_lang = gettext.translation(str(domain), localedir=languages_dir(), languages=[lang_code])
-			current_lang.install()
-		except Exception as e:
-			log.debug("FlatCAMTranslation.apply_language() --> %s. Perhaps is Cx_freeze-ed?" % str(e))
-			try:
-				current_lang = gettext.translation(str(domain),
-												   localedir=languages_dir_cx_freeze(),
-												   languages=[lang_code])
-				current_lang.install()
-			except Exception as e:
-				log.debug("FlatCAMTranslation.apply_language() --> %s" % str(e))
+def apply_language() -> Callable[[str], str]:
+	'loads locale to buildins; returns translation function'
+	global translation_dict, language_code, language_name
+	lang_name = get_current_language_name()
+	try:
+		lang = Language.find(lang_name)
+		lang_code = '_'.join((lang.language, lang.territory)) if lang.territory else lang.language
+		if language_code == lang_code:
+			# language already installed
+			return gettext
+		lang_f = next(t for c, t in iter_locales() if c == lang_code)
+		buff = lang_f.read_bytes()
+		translation_dict = loads(buff)
+	except:
+		log.debug(f'Language not found: {lang_name}')
+		return gettext
 
-		return name
-
+	language_code, language_name = language_code, lang_name
+	log.debug(f'Set language: {lang_code} ({lang_name})')
+	return gettext
 
 def restart_program(app, ask=None):
 	"""Restarts the current program.
@@ -171,8 +136,6 @@ def restart_program(app, ask=None):
 	saving data) must be done before calling this function.
 	"""
 	log.debug("FlatCAMTranslation.restart_program()")
-
-	resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
 
 	# try to quit the Socket opened by ArgsThread class
 	try:
@@ -194,7 +157,7 @@ def restart_program(app, ask=None):
 						 "\n"
 						 "Do you want to Save the project?"))
 		msgbox.setWindowTitle(_("Save changes"))
-		msgbox.setWindowIcon(QtGui.QIcon(resource_loc + '/save_as.png'))
+		msgbox.setWindowIcon(QtGui.QIcon(':/images/save_as.png'))
 		msgbox.setIcon(QtWidgets.QMessageBox.Question)
 
 		bt_yes = msgbox.addButton(_('Yes'), QtWidgets.QMessageBox.YesRole)
@@ -208,5 +171,5 @@ def restart_program(app, ask=None):
 			app.f_handlers.on_file_saveprojectas(use_thread=True, quit_action=True)
 
 	app.preferencesUiManager.save_defaults()
-	python = sys.executable
-	os.execl(python, python, *sys.argv)
+	python = executable
+	execl(python, python, *argv)

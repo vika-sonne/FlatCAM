@@ -16,13 +16,11 @@ from copy import deepcopy
 import math
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -444,7 +442,7 @@ class EtchUI:
 		grid0.addWidget(separator_line, 22, 0, 1, 2)
 
 		self.compensate_btn = FCButton(_('Compensate'))
-		self.compensate_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/etch_32.png'))
+		self.compensate_btn.setIcon(QtGui.QIcon(':/images/etch_32.png'))
 		self.compensate_btn.setToolTip(
 			_("Will increase the copper features thickness to compensate the lateral etch.")
 		)
@@ -460,7 +458,7 @@ class EtchUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

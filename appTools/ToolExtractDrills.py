@@ -13,13 +13,11 @@ from appGUI.GUIElements import RadioSet, FCDoubleSpinner, FCCheckBox, FCComboBox
 from shapely.geometry import Point
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -681,7 +679,7 @@ class ExtractDrillsUI:
 
 		# Extract drills from Gerber apertures flashes (pads)
 		self.e_drills_button = QtWidgets.QPushButton(_("Extract Drills"))
-		self.e_drills_button.setIcon(QtGui.QIcon(self.app.resource_location + '/drill16.png'))
+		self.e_drills_button.setIcon(QtGui.QIcon(':/images/drill16.png'))
 		self.e_drills_button.setToolTip(
 			_("Extract drills from a given Gerber file.")
 		)
@@ -697,7 +695,7 @@ class ExtractDrillsUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

@@ -21,7 +21,6 @@ import logging
 
 import numpy as np
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
@@ -34,9 +33,8 @@ from matplotlib.lines import Line2D
 from matplotlib.offsetbox import AnchoredText
 # from matplotlib.widgets import Cursor
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 

@@ -12,13 +12,11 @@ from appGUI.GUIElements import FCDoubleSpinner, FCCheckBox, FCButton, OptionalIn
 
 import numpy as np
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class ToolTransform(AppTool):
@@ -581,9 +579,9 @@ class TransformUI:
 		self.type_obj_combo.addItem(_("Excellon"))
 		self.type_obj_combo.addItem(_("Geometry"))
 
-		self.type_obj_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.type_obj_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/drill16.png"))
-		self.type_obj_combo.setItemIcon(2, QtGui.QIcon(self.app.resource_location + "/geometry16.png"))
+		self.type_obj_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.type_obj_combo.setItemIcon(1, QtGui.QIcon(':/images/drill16.png'))
+		self.type_obj_combo.setItemIcon(2, QtGui.QIcon(':/images/geometry16.png'))
 
 		grid0.addWidget(self.type_object_label, 3, 0)
 		grid0.addWidget(self.type_obj_combo, 3, 1, 1, 2)
@@ -913,7 +911,7 @@ class TransformUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

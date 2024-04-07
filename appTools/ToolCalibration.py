@@ -21,13 +21,11 @@ from datetime import datetime
 import logging
 from copy import deepcopy
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -891,8 +889,8 @@ class CalibUI:
 		self.obj_type_combo.addItem(_("Gerber"))
 		self.obj_type_combo.addItem(_("Excellon"))
 
-		self.obj_type_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.obj_type_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/drill16.png"))
+		self.obj_type_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.obj_type_combo.setItemIcon(1, QtGui.QIcon(':/images/drill16.png'))
 
 		grid_lay.addWidget(self.obj_type_label, 12, 0)
 		grid_lay.addWidget(self.obj_type_combo, 12, 1, 1, 2)
@@ -1325,9 +1323,9 @@ class CalibUI:
 		self.adj_object_type_combo = FCComboBox()
 		self.adj_object_type_combo.addItems([_("Gerber"), _("Excellon"), _("Geometry")])
 
-		self.adj_object_type_combo.setItemIcon(0, QtGui.QIcon(self.app.resource_location + "/flatcam_icon16.png"))
-		self.adj_object_type_combo.setItemIcon(1, QtGui.QIcon(self.app.resource_location + "/drill16.png"))
-		self.adj_object_type_combo.setItemIcon(2, QtGui.QIcon(self.app.resource_location + "/geometry16.png"))
+		self.adj_object_type_combo.setItemIcon(0, QtGui.QIcon(':/images/flatcam_icon16.png'))
+		self.adj_object_type_combo.setItemIcon(1, QtGui.QIcon(':/images/drill16.png'))
+		self.adj_object_type_combo.setItemIcon(2, QtGui.QIcon(':/images/geometry16.png'))
 
 		self.adj_object_type_label = QtWidgets.QLabel("%s:" % _("Adjusted object type"))
 		self.adj_object_type_label.setToolTip(_("Type of the FlatCAM Object to be adjusted."))
@@ -1376,7 +1374,7 @@ class CalibUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

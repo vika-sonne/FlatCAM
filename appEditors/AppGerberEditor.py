@@ -29,13 +29,11 @@ import math
 # from vispy.io import read_png
 # import pngcanvas
 import traceback
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -202,7 +200,7 @@ class PadEditorGrb(ShapeToolEditorGrb):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_circle.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_circle.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		try:
@@ -435,7 +433,7 @@ class PadArrayEditorGrb(ShapeToolEditorGrb):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_array.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_array.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.storage_obj = self.draw_app.storage_dict[self.draw_app.last_aperture_selected]['geometry']
@@ -1003,7 +1001,7 @@ class RegionEditorGrb(ShapeToolEditorGrb):
 		except Exception as e:
 			log.debug("AppGerberEditor.RegionEditorGrb --> %s" % str(e))
 
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.jump_signal.connect(lambda x: self.draw_app.update_utility_geometry(data=x))
@@ -1369,8 +1367,7 @@ class TrackEditorGrb(ShapeToolEditorGrb):
 		except Exception as e:
 			log.debug("AppGerberEditor.TrackEditorGrb.__init__() --> %s" % str(e))
 
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location +
-												  '/aero_path%s.png' % self.draw_app.bend_mode))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path%s.png' % self.draw_app.bend_mode))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.jump_signal.connect(lambda x: self.draw_app.update_utility_geometry(data=x))
@@ -1538,27 +1535,27 @@ class TrackEditorGrb(ShapeToolEditorGrb):
 
 			if self.draw_app.bend_mode == 1:
 				self.draw_app.bend_mode = 2
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path2.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path2.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 2: Reverse 45 degrees ...')
 			elif self.draw_app.bend_mode == 2:
 				self.draw_app.bend_mode = 3
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path3.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path3.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 3: 90 degrees ...')
 			elif self.draw_app.bend_mode == 3:
 				self.draw_app.bend_mode = 4
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path4.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path4.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 4: Reverse 90 degrees ...')
 			elif self.draw_app.bend_mode == 4:
 				self.draw_app.bend_mode = 5
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path5.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path5.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 5: Free angle ...')
 			else:
 				self.draw_app.bend_mode = 1
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path1.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path1.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 1: 45 degrees ...')
 
@@ -1577,27 +1574,27 @@ class TrackEditorGrb(ShapeToolEditorGrb):
 
 			if self.draw_app.bend_mode == 1:
 				self.draw_app.bend_mode = 5
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path5.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path5.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 5: Free angle ...')
 			elif self.draw_app.bend_mode == 5:
 				self.draw_app.bend_mode = 4
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path4.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path4.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 4: Reverse 90 degrees ...')
 			elif self.draw_app.bend_mode == 4:
 				self.draw_app.bend_mode = 3
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path3.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path3.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 3: 90 degrees ...')
 			elif self.draw_app.bend_mode == 3:
 				self.draw_app.bend_mode = 2
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path2.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path2.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 2: Reverse 45 degrees ...')
 			else:
 				self.draw_app.bend_mode = 1
-				self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_path1.png'))
+				self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_path1.png'))
 				QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 				msg = _('Track Mode 1: 45 degrees ...')
 
@@ -1632,7 +1629,7 @@ class DiscEditorGrb(ShapeToolEditorGrb):
 			QtGui.QGuiApplication.restoreOverrideCursor()
 		except Exception:
 			pass
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_disc.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_disc.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		try:
@@ -1742,7 +1739,7 @@ class DiscSemiEditorGrb(ShapeToolEditorGrb):
 		except Exception as e:
 			log.debug("AppGerberEditor.DiscSemiEditorGrb --> %s" % str(e))
 
-		self.cursor = QtGui.QCursor(QtGui.QPixmap(self.draw_app.app.resource_location + '/aero_semidisc.png'))
+		self.cursor = QtGui.QCursor(QtGui.QPixmap(':/images/aero_semidisc.png'))
 		QtGui.QGuiApplication.setOverrideCursor(self.cursor)
 
 		self.draw_app.app.inform.emit(_("Click on Center point ..."))
@@ -2253,7 +2250,7 @@ class MoveEditorGrb(ShapeToolEditorGrb):
 	#         c.polyline(pixels)
 	#         pixels = []
 	#
-	#     f = open("%s.png" % 'D:\\shapely_image', "wb")
+	#     f = open("%s.png' % 'D:\\shapely_image', "wb")
 	#     f.write(c.dump())
 	#     f.close()
 
@@ -5204,7 +5201,7 @@ class AppGerberEditorUI:
 		layout.addLayout(self.title_box)
 
 		# Page Title icon
-		pixmap = QtGui.QPixmap(self.app.resource_location + '/flatcam_icon32.png')
+		pixmap = QtGui.QPixmap(':/images/flatcam_icon32.png')
 		self.icon = FCLabel()
 		self.icon.setPixmap(pixmap)
 		self.title_box.addWidget(self.icon, stretch=0)
@@ -5355,13 +5352,13 @@ class AppGerberEditorUI:
 		grid1.addLayout(hlay_ad, 8, 0, 1, 2)
 
 		self.addaperture_btn = FCButton(_('Add'))
-		self.addaperture_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.addaperture_btn.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.addaperture_btn.setToolTip(
 			_("Add a new aperture to the aperture list.")
 		)
 
 		self.delaperture_btn = FCButton(_('Delete'))
-		self.delaperture_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/trash32.png'))
+		self.delaperture_btn.setIcon(QtGui.QIcon(':/images/trash32.png'))
 		self.delaperture_btn.setToolTip(
 			_("Delete a aperture in the aperture list")
 		)
@@ -5421,7 +5418,7 @@ class AppGerberEditorUI:
 		self.buffer_tools_box.addLayout(hlay_buf)
 
 		self.buffer_button = FCButton(_("Buffer"))
-		self.buffer_button.setIcon(QtGui.QIcon(self.app.resource_location + '/buffer16-2.png'))
+		self.buffer_button.setIcon(QtGui.QIcon(':/images/buffer16-2.png'))
 		hlay_buf.addWidget(self.buffer_button)
 
 		# #############################################################################################################
@@ -5467,7 +5464,7 @@ class AppGerberEditorUI:
 		self.scale_tools_box.addLayout(hlay_scale)
 
 		self.scale_button = FCButton(_("Scale"))
-		self.scale_button.setIcon(QtGui.QIcon(self.app.resource_location + '/clean32.png'))
+		self.scale_button.setIcon(QtGui.QIcon(':/images/clean32.png'))
 		hlay_scale.addWidget(self.scale_button)
 
 		# #############################################################################################################
@@ -5523,21 +5520,21 @@ class AppGerberEditorUI:
 		self.ma_tools_box.addLayout(hlay_ma)
 
 		self.ma_threshold_button = FCButton(_("Mark"))
-		self.ma_threshold_button.setIcon(QtGui.QIcon(self.app.resource_location + '/markarea32.png'))
+		self.ma_threshold_button.setIcon(QtGui.QIcon(':/images/markarea32.png'))
 		self.ma_threshold_button.setToolTip(
 			_("Mark the polygons that fit within limits.")
 		)
 		hlay_ma.addWidget(self.ma_threshold_button)
 
 		self.ma_delete_button = FCButton(_("Delete"))
-		self.ma_delete_button.setIcon(QtGui.QIcon(self.app.resource_location + '/trash32.png'))
+		self.ma_delete_button.setIcon(QtGui.QIcon(':/images/trash32.png'))
 		self.ma_delete_button.setToolTip(
 			_("Delete all the marked polygons.")
 		)
 		hlay_ma.addWidget(self.ma_delete_button)
 
 		self.ma_clear_button = FCButton(_("Clear"))
-		self.ma_clear_button.setIcon(QtGui.QIcon(self.app.resource_location + '/clean32.png'))
+		self.ma_clear_button.setIcon(QtGui.QIcon(':/images/clean32.png'))
 		self.ma_clear_button.setToolTip(
 			_("Clear all the markings.")
 		)
@@ -5689,7 +5686,7 @@ class AppGerberEditorUI:
 
 		# Editor
 		self.exit_editor_button = FCButton(_('Exit Editor'))
-		self.exit_editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/power16.png'))
+		self.exit_editor_button.setIcon(QtGui.QIcon(':/images/power16.png'))
 		self.exit_editor_button.setToolTip(
 			_("Exit from Editor.")
 		)
@@ -6603,7 +6600,7 @@ class TransformEditorTool(AppTool):
 									   min=-359.9999, max=360.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_rotate']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/rotate.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/rotate.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -6621,7 +6618,7 @@ class TransformEditorTool(AppTool):
 									   min=-10000.0000, max=10000.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_offset_x']),
 									   parent=self.app.ui)
-		val_box.setWindowIcon(QtGui.QIcon(self.app.resource_location + '/offsetx32.png'))
+		val_box.setWindowIcon(QtGui.QIcon(':/images/offsetx32.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -6639,7 +6636,7 @@ class TransformEditorTool(AppTool):
 									   min=-10000.0000, max=10000.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_offset_y']),
 									   parent=self.app.ui)
-		val_box.set_icon(QtGui.QIcon(self.app.resource_location + '/offsety32.png'))
+		val_box.set_icon(QtGui.QIcon(':/images/offsety32.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -6655,7 +6652,7 @@ class TransformEditorTool(AppTool):
 									   min=-359.9999, max=360.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_skew_x']),
 									   parent=self.app.ui)
-		val_box.setWindowIcon(QtGui.QIcon(self.app.resource_location + '/skewX.png'))
+		val_box.setWindowIcon(QtGui.QIcon(':/images/skewX.png'))
 
 		val, ok = val_box.get_value()
 		if ok:
@@ -6671,7 +6668,7 @@ class TransformEditorTool(AppTool):
 									   min=-359.9999, max=360.0000, decimals=self.decimals,
 									   init_val=float(self.app.defaults['tools_transform_skew_y']),
 									   parent=self.app.ui)
-		val_box.setWindowIcon(QtGui.QIcon(self.app.resource_location + '/skewY.png'))
+		val_box.setWindowIcon(QtGui.QIcon(':/images/skewY.png'))
 
 		val, ok = val_box.get_value()
 		if ok:

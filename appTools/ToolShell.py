@@ -18,13 +18,11 @@ import traceback
 import tkinter as tk
 import tclCommands
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class TermWidget(QWidget):
@@ -54,7 +52,7 @@ class TermWidget(QWidget):
 		self.setFocusProxy(self._edit)
 
 		self._delete_line = FCLabel()
-		self._delete_line.setPixmap(QPixmap(self.app.resource_location + '/clear_line16.png'))
+		self._delete_line.setPixmap(QPixmap(':/images/clear_line16.png'))
 		self._delete_line.setMargin(3)
 		self._delete_line.setToolTip(_("Clear the text."))
 

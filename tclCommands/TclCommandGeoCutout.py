@@ -6,15 +6,13 @@ from copy import deepcopy
 from shapely.ops import unary_union
 from shapely.geometry import Polygon, LineString, LinearRing
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
 log = logging.getLogger('base')
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class TclCommandGeoCutout(TclCommandSignaled):

@@ -18,7 +18,6 @@ import serial
 import glob
 import math
 import random
-import gettext
 import appTranslation as fcTranslate
 import builtins
 from copy import deepcopy
@@ -41,9 +40,8 @@ from appObjects.FlatCAMObj import *
 from appGUI.Color import get_rand_fg_color
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class CNCJobObject(FlatCAMObj, CNCjob):

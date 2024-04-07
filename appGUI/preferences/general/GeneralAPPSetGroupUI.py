@@ -1,4 +1,3 @@
-import gettext
 import appTranslation as fcTranslate
 import builtins
 from PyQt5 import QtCore, QtWidgets
@@ -11,9 +10,8 @@ from appGUI.preferences.OptionsGroupUI import OptionsGroupUI
 from settings import is_theme_white, axis_font_size
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):
@@ -28,8 +26,6 @@ class GeneralAPPSetGroupUI(OptionsGroupUI):
 
 		self.setTitle(str(_("App Settings")))
 		self.decimals = decimals
-
-		self.resource_loc = 'assets/resources' if is_theme_white() else 'assets/resources/dark_resources'
 
 		# Create a grid layout for the Application general settings
 		grid0 = QtWidgets.QGridLayout()

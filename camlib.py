@@ -59,11 +59,8 @@ if platform.architecture()[0] == '64bit':
 
 import logging
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
-
-fcTranslate.apply_language('strings')
 
 log = logging.getLogger('base2')
 log.setLevel(logging.DEBUG)
@@ -74,7 +71,7 @@ handler.setFormatter(formatter)
 log.addHandler(handler)
 
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class ParseError(Exception):

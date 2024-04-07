@@ -25,13 +25,11 @@ import numpy as np
 # from voronoi import Voronoi
 # from voronoi import Polygon as voronoi_polygon
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class GracefulException(Exception):

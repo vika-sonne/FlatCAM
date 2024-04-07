@@ -17,13 +17,11 @@ import traceback
 from copy import deepcopy
 import time
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -728,7 +726,7 @@ class SubUI:
 		grid0.addWidget(self.sub_gerber_combo, 10, 1)
 
 		self.intersect_btn = FCButton(_('Subtract Gerber'))
-		self.intersect_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/subtract_btn32.png'))
+		self.intersect_btn.setIcon(QtGui.QIcon(':/images/subtract_btn32.png'))
 		self.intersect_btn.setToolTip(
 			_("Will remove the area occupied by the subtractor\n"
 			  "Gerber from the Target Gerber.\n"
@@ -786,7 +784,7 @@ class SubUI:
 		grid0.addWidget(self.close_paths_cb, 22, 0, 1, 2)
 
 		self.intersect_geo_btn = FCButton(_('Subtract Geometry'))
-		self.intersect_geo_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/subtract_btn32.png'))
+		self.intersect_geo_btn.setIcon(QtGui.QIcon(':/images/subtract_btn32.png'))
 		self.intersect_geo_btn.setToolTip(
 			_("Will remove the area occupied by the subtractor\n"
 			  "Geometry from the Target Geometry.")
@@ -805,7 +803,7 @@ class SubUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

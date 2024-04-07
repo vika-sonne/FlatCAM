@@ -1,6 +1,5 @@
 import os
 import logging
-import gettext
 import builtins
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import QSettings
@@ -10,9 +9,8 @@ from settings import theme, set_theme
 import appTranslation as fcTranslate
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):
@@ -920,7 +918,7 @@ class PreferencesUIManager:
 
 		# restore the default stylesheet by setting a blank one
 		self.ui.pref_apply_button.setStyleSheet("")
-		self.ui.pref_apply_button.setIcon(QtGui.QIcon(self.ui.app.resource_location + '/apply32.png'))
+		self.ui.pref_apply_button.setIcon(QtGui.QIcon(':/images/apply32.png'))
 
 		self.inform.emit('%s' % _("Preferences applied."))
 
@@ -940,7 +938,7 @@ class PreferencesUIManager:
 			msgbox = QtWidgets.QMessageBox()
 			msgbox.setText(_("Are you sure you want to continue?"))
 			msgbox.setWindowTitle(_("Application will restart"))
-			msgbox.setWindowIcon(QtGui.QIcon(self.ui.app.resource_location + '/warning.png'))
+			msgbox.setWindowIcon(QtGui.QIcon(':/images/warning.png'))
 			msgbox.setIcon(QtWidgets.QMessageBox.Question)
 			bt_yes = msgbox.addButton(_('Yes'), QtWidgets.QMessageBox.YesRole)
 			msgbox.addButton(_('Cancel'), QtWidgets.QMessageBox.NoRole)
@@ -1136,7 +1134,7 @@ class PreferencesUIManager:
 					self.ui.plot_tab_area.tabBar.setTabTextColor(idx, QtGui.QColor('red'))
 
 			self.ui.pref_apply_button.setStyleSheet("QPushButton {color: red;}")
-			self.ui.pref_apply_button.setIcon(QtGui.QIcon(self.ui.app.resource_location + '/apply_red32.png'))
+			self.ui.pref_apply_button.setIcon(QtGui.QIcon(':/images/apply_red32.png'))
 
 			self.preferences_changed_flag = True
 
@@ -1181,7 +1179,7 @@ class PreferencesUIManager:
 			msgbox.setText(_("One or more values are changed.\n"
 							 "Do you want to save the Preferences?"))
 			msgbox.setWindowTitle(_("Save Preferences"))
-			msgbox.setWindowIcon(QtGui.QIcon(self.ui.app.resource_location + '/save_as.png'))
+			msgbox.setWindowIcon(QtGui.QIcon(':/images/save_as.png'))
 			msgbox.setIcon(QtWidgets.QMessageBox.Question)
 
 			bt_yes = msgbox.addButton(_('Yes'), QtWidgets.QMessageBox.YesRole)

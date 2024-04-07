@@ -5,13 +5,11 @@ from appGUI.preferences.general.GeneralAppPrefGroupUI import GeneralAppPrefGroup
 from appGUI.preferences.general.GeneralAPPSetGroupUI import GeneralAPPSetGroupUI
 from appGUI.preferences.general.GeneralGUIPrefGroupUI import GeneralGUIPrefGroupUI
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):

@@ -27,13 +27,11 @@ import qrcode.image.svg
 import qrcode.image.pil
 from lxml import etree as ET
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -894,7 +892,7 @@ class QRcodeUI:
 
 		# ## Insert QRCode
 		self.qrcode_button = QtWidgets.QPushButton(_("Insert QRCode"))
-		self.qrcode_button.setIcon(QtGui.QIcon(self.app.resource_location + '/qrcode32.png'))
+		self.qrcode_button.setIcon(QtGui.QIcon(':/images/qrcode32.png'))
 		self.qrcode_button.setToolTip(
 			_("Create the QRCode object.")
 		)
@@ -910,7 +908,7 @@ class QRcodeUI:
 
 		# ## Reset Tool
 		self.reset_button = QtWidgets.QPushButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

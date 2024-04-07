@@ -6,13 +6,11 @@ import webbrowser
 
 from copy import deepcopy
 from datetime import datetime
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class BookmarkManager(QtWidgets.QWidget):
@@ -220,7 +218,7 @@ class BookmarkManager(QtWidgets.QWidget):
 		if len(self.bm_dict) < bm_limit:
 			act = QtWidgets.QAction(parent=self.app.ui.menuhelp_bookmarks)
 			act.setText(title)
-			act.setIcon(QtGui.QIcon(self.app.resource_location + '/link16.png'))
+			act.setIcon(QtGui.QIcon(':/images/link16.png'))
 			act.triggered.connect(lambda: webbrowser.open(link))
 			self.app.ui.menuhelp_bookmarks.insertAction(self.app.ui.menuhelp_bookmarks_manager, act)
 

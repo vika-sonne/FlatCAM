@@ -6,13 +6,11 @@ from PyQt5.QtCore import QSettings
 from appGUI.GUIElements import RadioSet, FCCheckBox, FCButton, FCComboBox, FCEntry, FCSpinner, FCColorEntry, \
 	FCSliderWithSpinner, FCDoubleSpinner, FloatEntry, FCTextArea
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class OptionUI:

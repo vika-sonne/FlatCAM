@@ -6,13 +6,11 @@ from appGUI.preferences.geometry.GeometryAdvOptPrefGroupUI import GeometryAdvOpt
 from appGUI.preferences.geometry.GeometryOptPrefGroupUI import GeometryOptPrefGroupUI
 from appGUI.preferences.geometry.GeometryGenPrefGroupUI import GeometryGenPrefGroupUI
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):

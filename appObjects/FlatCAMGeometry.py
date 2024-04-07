@@ -16,7 +16,6 @@ from collections import defaultdict
 from copy import deepcopy
 from functools import reduce
 import traceback
-import gettext
 import numpy as np
 import builtins
 import simplejson as json
@@ -31,9 +30,8 @@ from appObjects.FlatCAMObj import *
 from appGUI.Color import get_fg_blue
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class GeometryObject(FlatCAMObj, Geometry):
@@ -569,13 +567,13 @@ class GeometryObject(FlatCAMObj, Geometry):
 		self.ui.geo_tools_table.setupContextMenu()
 		self.ui.geo_tools_table.addContextMenu(
 			_("Pick from DB"), self.on_tool_add_from_db_clicked,
-			icon=QtGui.QIcon(self.app.resource_location + "/plus16.png"))
+			icon=QtGui.QIcon(':/images/plus16.png'))
 		self.ui.geo_tools_table.addContextMenu(
 			_("Copy"), self.on_tool_copy,
-			icon=QtGui.QIcon(self.app.resource_location + "/copy16.png"))
+			icon=QtGui.QIcon(':/images/copy16.png'))
 		self.ui.geo_tools_table.addContextMenu(
 			_("Delete"), lambda: self.on_tool_delete(all_tools=None),
-			icon=QtGui.QIcon(self.app.resource_location + "/trash16.png"))
+			icon=QtGui.QIcon(':/images/trash16.png'))
 
 		# Show/Hide Advanced Options
 		if self.app.defaults["global_app_level"] == 'b':

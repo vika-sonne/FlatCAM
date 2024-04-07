@@ -1,3 +1,10 @@
+# generated from .qrc files
+resources.py
+resources_dark.py
+
+# generated from .po files
+translate/*.bin
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

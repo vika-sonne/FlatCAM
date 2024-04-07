@@ -28,13 +28,11 @@ import sys
 import logging
 import simplejson as json
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -134,15 +132,15 @@ class ToolPaint(AppTool, Gerber):
 		# #############################################################################
 		self.ui.tools_table.setupContextMenu()
 		self.ui.tools_table.addContextMenu(
-			_("Add"), self.on_add_tool_by_key, icon=QtGui.QIcon(self.app.resource_location + "/plus16.png")
+			_("Add"), self.on_add_tool_by_key, icon=QtGui.QIcon(':/images/plus16.png')
 		)
 		self.ui.tools_table.addContextMenu(
-			_("Add from DB"), self.on_add_tool_by_key, icon=QtGui.QIcon(self.app.resource_location + "/plus16.png")
+			_("Add from DB"), self.on_add_tool_by_key, icon=QtGui.QIcon(':/images/plus16.png')
 		)
 		self.ui.tools_table.addContextMenu(
 			_("Delete"), lambda:
 			self.on_tool_delete(rows_to_delete=None, all_tools=None),
-			icon=QtGui.QIcon(self.app.resource_location + "/delete32.png")
+			icon=QtGui.QIcon(':/images/delete32.png')
 		)
 
 	def on_type_obj_changed(self, val):
@@ -385,7 +383,7 @@ class ToolPaint(AppTool, Gerber):
 											  text='%s:' % _('Enter a Tool Diameter'),
 											  min=0.0000, max=99.9999, decimals=self.decimals,
 											  parent=self.app.ui)
-		tool_add_popup.set_icon(QtGui.QIcon(self.app.resource_location + '/letter_t_32.png'))
+		tool_add_popup.set_icon(QtGui.QIcon(':/images/letter_t_32.png'))
 
 		val, ok = tool_add_popup.get_value()
 		if ok:
@@ -2914,7 +2912,7 @@ class PaintUI:
 		hlay = QtWidgets.QHBoxLayout()
 
 		self.add_newtool_button = FCButton(_('Search and Add'))
-		self.add_newtool_button.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.add_newtool_button.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.add_newtool_button.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "with the diameter specified above.\n"
@@ -2925,7 +2923,7 @@ class PaintUI:
 		hlay.addWidget(self.add_newtool_button)
 
 		self.addtool_from_db_btn = FCButton(_('Pick from DB'))
-		self.addtool_from_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/search_db32.png'))
+		self.addtool_from_db_btn.setIcon(QtGui.QIcon(':/images/search_db32.png'))
 		self.addtool_from_db_btn.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "from the Tools Database.\n"
@@ -2942,7 +2940,7 @@ class PaintUI:
 		self.grid3.addWidget(separator_line, 8, 0, 1, 2)
 
 		self.deltool_btn = FCButton(_('Delete'))
-		self.deltool_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/trash16.png'))
+		self.deltool_btn.setIcon(QtGui.QIcon(':/images/trash16.png'))
 		self.deltool_btn.setToolTip(
 			_("Delete a selection of tools in the Tool Table\n"
 			  "by first selecting a row in the Tool Table.")
@@ -3054,7 +3052,7 @@ class PaintUI:
 		grid4.addWidget(separator_line, 11, 0, 1, 2)
 
 		self.apply_param_to_all = FCButton(_("Apply parameters to all tools"))
-		self.apply_param_to_all.setIcon(QtGui.QIcon(self.app.resource_location + '/param_all32.png'))
+		self.apply_param_to_all.setIcon(QtGui.QIcon(':/images/param_all32.png'))
 		self.apply_param_to_all.setToolTip(
 			_("The parameters in the current form will be applied\n"
 			  "on all the tools from the Tool Table.")
@@ -3161,7 +3159,7 @@ class PaintUI:
 
 		# GO Button
 		self.generate_paint_button = FCButton(_('Generate Geometry'))
-		self.generate_paint_button.setIcon(QtGui.QIcon(self.app.resource_location + '/geometry32.png'))
+		self.generate_paint_button.setIcon(QtGui.QIcon(':/images/geometry32.png'))
 		self.generate_paint_button.setToolTip(
 			_("Create a Geometry Object which paints the polygons.")
 		)
@@ -3177,7 +3175,7 @@ class PaintUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

@@ -10,13 +10,11 @@ from PyQt5 import QtCore, QtWidgets
 
 from shapely.geometry import Polygon, LineString
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class AppTool(QtWidgets.QWidget):

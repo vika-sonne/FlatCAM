@@ -10,13 +10,11 @@ from appGUI.GUIElements import FlatCAMActivityView
 from PyQt5 import QtCore
 import weakref
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 # import logging
 

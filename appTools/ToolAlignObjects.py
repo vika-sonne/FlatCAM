@@ -15,14 +15,12 @@ import math
 from shapely.geometry import Point
 from shapely.affinity import translate
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 import logging
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -479,7 +477,7 @@ class AlignUI:
 
 		# Buttons
 		self.align_object_button = FCButton(_("Align Object"))
-		self.align_object_button.setIcon(QtGui.QIcon(self.app.resource_location + '/align16.png'))
+		self.align_object_button.setIcon(QtGui.QIcon(':/images/align16.png'))
 		self.align_object_button.setToolTip(
 			_("Align the specified object to the aligner object.\n"
 			  "If only one point is used then it assumes translation.\n"
@@ -497,7 +495,7 @@ class AlignUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

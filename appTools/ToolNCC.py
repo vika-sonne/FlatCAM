@@ -8,7 +8,6 @@
 import sys
 import logging
 import traceback
-import gettext
 import simplejson as json
 import appTranslation as fcTranslate
 import builtins
@@ -28,9 +27,8 @@ from appParsers.ParseGerber import Gerber
 from appGUI.Color import get_fg_blue
 
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -57,15 +55,15 @@ class NonCopperClear(AppTool, Gerber):
 		# #############################################################################
 		self.ui.tools_table.setupContextMenu()
 		self.ui.tools_table.addContextMenu(
-			_("Add"), self.on_add_tool_by_key, icon=QtGui.QIcon(self.app.resource_location + "/plus16.png")
+			_("Add"), self.on_add_tool_by_key, icon=QtGui.QIcon(':/images/plus16.png')
 		)
 		self.ui.tools_table.addContextMenu(
-			_("Add from DB"), self.on_add_tool_by_key, icon=QtGui.QIcon(self.app.resource_location + "/plus16.png")
+			_("Add from DB"), self.on_add_tool_by_key, icon=QtGui.QIcon(':/images/plus16.png')
 		)
 		self.ui.tools_table.addContextMenu(
 			_("Delete"), lambda:
 			self.on_tool_delete(rows_to_delete=None, all_tools=None),
-			icon=QtGui.QIcon(self.app.resource_location + "/delete32.png")
+			icon=QtGui.QIcon(':/images/delete32.png')
 		)
 
 		# #############################################################################
@@ -446,7 +444,7 @@ class NonCopperClear(AppTool, Gerber):
 		# tool_add_popup = FCInputDialog(title='%s...' % _("New Tool"),
 		#                                text='%s:' % _('Enter a Tool Diameter'),
 		#                                min=0.0001, max=10000.0000, decimals=self.decimals)
-		btn_icon = QtGui.QIcon(self.app.resource_location + '/open_excellon32.png')
+		btn_icon = QtGui.QIcon(':/images/open_excellon32.png')
 
 		tool_add_popup = FCInputDialogSpinnerButton(title='%s...' % _("New Tool"),
 													text='%s:' % _('Enter a Tool Diameter'),
@@ -454,7 +452,7 @@ class NonCopperClear(AppTool, Gerber):
 													button_icon=btn_icon,
 													callback=self.on_find_optimal_tooldia,
 													parent=self.app.ui)
-		tool_add_popup.setWindowIcon(QtGui.QIcon(self.app.resource_location + '/letter_t_32.png'))
+		tool_add_popup.setWindowIcon(QtGui.QIcon(':/images/letter_t_32.png'))
 
 		def find_optimal(valor):
 			tool_add_popup.set_value(float(valor))
@@ -4085,7 +4083,7 @@ class NccUI:
 		# Find Optimal Tooldia
 		self.find_optimal_button = QtWidgets.QToolButton()
 		self.find_optimal_button.setText(_('Optimal'))
-		self.find_optimal_button.setIcon(QtGui.QIcon(self.app.resource_location + '/open_excellon32.png'))
+		self.find_optimal_button.setIcon(QtGui.QIcon(':/images/open_excellon32.png'))
 		self.find_optimal_button.setToolButtonStyle(QtCore.Qt.ToolButtonTextBesideIcon)
 		self.find_optimal_button.setToolTip(
 			_("Find a tool diameter that is guaranteed\n"
@@ -4098,7 +4096,7 @@ class NccUI:
 		hlay = QtWidgets.QHBoxLayout()
 
 		self.add_newtool_button = FCButton(_('Search and Add'))
-		self.add_newtool_button.setIcon(QtGui.QIcon(self.app.resource_location + '/plus16.png'))
+		self.add_newtool_button.setIcon(QtGui.QIcon(':/images/plus16.png'))
 		self.add_newtool_button.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "with the diameter specified above.\n"
@@ -4109,7 +4107,7 @@ class NccUI:
 		hlay.addWidget(self.add_newtool_button)
 
 		self.addtool_from_db_btn = FCButton(_('Pick from DB'))
-		self.addtool_from_db_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/search_db32.png'))
+		self.addtool_from_db_btn.setIcon(QtGui.QIcon(':/images/search_db32.png'))
 		self.addtool_from_db_btn.setToolTip(
 			_("Add a new tool to the Tool Table\n"
 			  "from the Tools Database.\n"
@@ -4126,7 +4124,7 @@ class NccUI:
 		self.grid3.addWidget(separator_line, 8, 0, 1, 2)
 
 		self.deltool_btn = FCButton(_('Delete'))
-		self.deltool_btn.setIcon(QtGui.QIcon(self.app.resource_location + '/trash16.png'))
+		self.deltool_btn.setIcon(QtGui.QIcon(':/images/trash16.png'))
 		self.deltool_btn.setToolTip(
 			_("Delete a selection of tools in the Tool Table\n"
 			  "by first selecting a row in the Tool Table.")
@@ -4302,7 +4300,7 @@ class NccUI:
 		self.grid3.addWidget(separator_line, 21, 0, 1, 2)
 
 		self.apply_param_to_all = FCButton(_("Apply parameters to all tools"))
-		self.apply_param_to_all.setIcon(QtGui.QIcon(self.app.resource_location + '/param_all32.png'))
+		self.apply_param_to_all.setIcon(QtGui.QIcon(':/images/param_all32.png'))
 		self.apply_param_to_all.setToolTip(
 			_("The parameters in the current form will be applied\n"
 			  "on all the tools from the Tool Table.")
@@ -4461,7 +4459,7 @@ class NccUI:
 		self.grid3.addWidget(separator_line, 39, 0, 1, 2)
 
 		self.generate_ncc_button = FCButton(_('Generate Geometry'))
-		self.generate_ncc_button.setIcon(QtGui.QIcon(self.app.resource_location + '/geometry32.png'))
+		self.generate_ncc_button.setIcon(QtGui.QIcon(':/images/geometry32.png'))
 		self.generate_ncc_button.setToolTip(
 			_("Create the Geometry Object\n"
 			  "for non-copper routing.")
@@ -4477,7 +4475,7 @@ class NccUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

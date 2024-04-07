@@ -18,13 +18,11 @@ from shapely.ops import nearest_points
 import numpy as np
 
 import logging
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -573,7 +571,7 @@ class OptimalUI:
 
 		# GO button
 		self.calculate_button = FCButton(_("Find Minimum"))
-		self.calculate_button.setIcon(QtGui.QIcon(self.app.resource_location + '/open_excellon32.png'))
+		self.calculate_button.setIcon(QtGui.QIcon(':/images/open_excellon32.png'))
 		self.calculate_button.setToolTip(
 			_("Calculate the minimum distance between copper features,\n"
 			  "this will allow the determination of the right tool to\n"
@@ -592,7 +590,7 @@ class OptimalUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

@@ -17,13 +17,11 @@ import logging
 import traceback
 from copy import deepcopy
 
-# import AppTranslation as fcTranslate
-
-import gettext
+import appTranslation as fcTranslate
 import builtins
 
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 

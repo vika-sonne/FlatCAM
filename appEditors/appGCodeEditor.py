@@ -14,13 +14,11 @@ from PyQt5 import QtWidgets, QtCore, QtGui
 
 import logging
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 log = logging.getLogger('base')
 
@@ -543,7 +541,7 @@ class AppGCodeEditor(QtCore.QObject):
 		# self.ui.buttonPreview.setEnabled(enable)
 
 		self.buttonSave.setStyleSheet("QPushButton {color: red;}")
-		self.buttonSave.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as_red.png'))
+		self.buttonSave.setIcon(QtGui.QIcon(':/images/save_as_red.png'))
 
 	def insert_gcode(self):
 		"""
@@ -584,7 +582,7 @@ class AppGCodeEditor(QtCore.QObject):
 		self.deactivate()
 
 		self.ui.gcode_editor_tab.buttonSave.setStyleSheet("")
-		self.ui.gcode_editor_tab.buttonSave.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		self.ui.gcode_editor_tab.buttonSave.setIcon(QtGui.QIcon(':/images/save_as.png'))
 
 	def on_open_gcode(self):
 		"""
@@ -653,7 +651,7 @@ class AppGCodeEditorUI:
 		self.edit_box.addLayout(self.title_box)
 
 		# ## Page Title icon
-		pixmap = QtGui.QPixmap(self.app.resource_location + '/flatcam_icon32.png')
+		pixmap = QtGui.QPixmap(':/images/flatcam_icon32.png')
 		self.icon = QtWidgets.QLabel()
 		self.icon.setPixmap(pixmap)
 		self.title_box.addWidget(self.icon, stretch=0)
@@ -719,7 +717,7 @@ class AppGCodeEditorUI:
 
 		# Insert Button
 		self.update_gcode_button = FCButton(_('Insert Code'))
-		# self.update_gcode_button.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		# self.update_gcode_button.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.update_gcode_button.setToolTip(
 			_("Insert the code above at the cursor location.")
 		)
@@ -741,7 +739,7 @@ class AppGCodeEditorUI:
 
 		# Insert Button
 		self.update_gcode_sec_button = FCButton(_('Insert Code'))
-		# self.update_gcode_button.setIcon(QtGui.QIcon(self.app.resource_location + '/save_as.png'))
+		# self.update_gcode_button.setIcon(QtGui.QIcon(':/images/save_as.png'))
 		self.update_gcode_sec_button.setToolTip(
 			_("Insert the code above at the cursor location.")
 		)
@@ -751,7 +749,7 @@ class AppGCodeEditorUI:
 
 		# Editor
 		self.exit_editor_button = FCButton(_('Exit Editor'))
-		self.exit_editor_button.setIcon(QtGui.QIcon(self.app.resource_location + '/power16.png'))
+		self.exit_editor_button.setIcon(QtGui.QIcon(':/images/power16.png'))
 		self.exit_editor_button.setToolTip(
 			_("Exit from Editor.")
 		)

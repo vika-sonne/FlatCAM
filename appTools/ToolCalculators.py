@@ -10,13 +10,11 @@ from appTool import AppTool
 from appGUI.GUIElements import FCSpinner, FCDoubleSpinner, NumericalEvalEntry, FCLabel, RadioSet, FCButton
 import math
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 
 class ToolCalculator(AppTool):
@@ -303,7 +301,7 @@ class CalcUI:
 
 		# ## Buttons
 		self.calculate_vshape_button = FCButton(_("Calculate"))
-		self.calculate_vshape_button.setIcon(QtGui.QIcon(self.app.resource_location + '/calculator16.png'))
+		self.calculate_vshape_button.setIcon(QtGui.QIcon(':/images/calculator16.png'))
 
 		self.calculate_vshape_button.setToolTip(
 			_("Calculate either the Cut Z or the effective tool diameter,\n  "
@@ -488,7 +486,7 @@ class CalcUI:
 
 		# ## Buttons
 		self.calculate_plate_button = FCButton(_("Calculate"))
-		self.calculate_plate_button.setIcon(QtGui.QIcon(self.app.resource_location + '/calculator16.png'))
+		self.calculate_plate_button.setIcon(QtGui.QIcon(':/images/calculator16.png'))
 		self.calculate_plate_button.setToolTip(
 			_("Calculate the current intensity value and the procedure time,\n"
 			  "depending on the parameters above")
@@ -499,7 +497,7 @@ class CalcUI:
 
 		# ## Reset Tool
 		self.reset_button = FCButton(_("Reset Tool"))
-		self.reset_button.setIcon(QtGui.QIcon(self.app.resource_location + '/reset32.png'))
+		self.reset_button.setIcon(QtGui.QIcon(':/images/reset32.png'))
 		self.reset_button.setToolTip(
 			_("Will reset the tool parameters.")
 		)

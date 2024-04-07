@@ -5,13 +5,11 @@ from appGUI.GUIElements import FCDoubleSpinner, FCCheckBox, RadioSet, FCLabel, N
 	NumericalEvalEntry, FCComboBox2
 from appGUI.preferences.OptionsGroupUI import OptionsGroupUI
 
-import gettext
 import appTranslation as fcTranslate
 import builtins
 
-fcTranslate.apply_language('strings')
 if '_' not in builtins.__dict__:
-	_ = gettext.gettext
+	_ = fcTranslate.apply_language()
 
 settings = QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):
