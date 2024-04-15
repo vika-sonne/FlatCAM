@@ -25,7 +25,9 @@
 # ├── en.bin
 # ...
 
+cd ..
+
 # convert GNU gettext files: .po to .mo
 find -name "*.po" -exec bash -c 'msgfmt "$0" -o "${0%.*}.mo"' {} \;
 
-python ./create_translate.py
+python ./publish/create_translate.py

@@ -27,7 +27,7 @@ from gettext import GNUTranslations
 from pickle import dump
 
 
-locale_path = Path('translate')
+locale_path = Path('FlatCAM').joinpath('translate')
 
 # create package
 locale_path.joinpath('__init__.py').open('w')
