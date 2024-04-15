@@ -1,4 +1,4 @@
-FlatCAM BETA (c) 2023 - by vika-sonne
+FlatCAM BETA (c) 2023-2024 - by vika-sonne
 FlatCAM BETA (c) 2019 - by Marius Stanciu
 Based on FlatCAM: 
 2D Computer-Aided PCB Manufacturing by (c) 2014-2016 Juan Pablo Caram
@@ -7,6 +7,11 @@ Based on FlatCAM:
 CHANGELOG for FlatCAM beta
 
 =================================================
+
+04.2024
+
+- move publish process to zipapp
+- add colored logging with different by logging level, timestamps look dimmer
 
 05.2023
 

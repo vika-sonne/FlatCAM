@@ -105,13 +105,13 @@ python -m pip install -r requirements.txt
 
 
 ```
-python FlatCAM.py
+python FlatCAM.zip
 ```
 
 Get command-line help:
 ```
-python FlatCAM.py -h
-usage: FlatCAM.py [-h] [--shellfile SHELLFILE] [--shellvar SHELLVAR] [--headless] [-V] [misc ...]
+python FlatCAM.zip -h
+usage: FlatCAM.zip [-h] [--shellfile SHELLFILE] [--shellvar SHELLVAR] [--headless] [-V] [misc ...]
 
 2D Computer-Aided PCB Manufacturing for CNC
 
@@ -126,7 +126,7 @@ options:
   -V, --version         show version
 
 Usage examples:
-FlatCAM.py --shellfile=<cmd_line_shellfile>
-FlatCAM.py --shellvar=<1,'C:\path',23>
-FlatCAM.py --headless
+FlatCAM.zip --shellfile=<cmd_line_shellfile>
+FlatCAM.zip --shellvar=<1,'C:\path',23>
+FlatCAM.zip --headless
 ```
