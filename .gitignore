@@ -3,7 +3,7 @@ resources.py
 resources_dark.py
 
 # generated from .po files
-translate/*.bin
+FlatCAM/translate/*.bin
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
