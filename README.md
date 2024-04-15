@@ -1,6 +1,6 @@
-# FlatCAM β (c) 2023.5
+# FlatCAM β (c) 2024.4
 
-![FlatCAM β](/assets/resources/flatcam_icon128.png)
+![FlatCAM β](/FlatCAM/assets/resources/flatcam_icon128.png)
 Based on
 * FlatCAM BETA (c) 2019 by Marius Stanciu
 * 2D Computer-Aided PCB Manufacturing by (c) 2014-2016 Juan Pablo Caram
