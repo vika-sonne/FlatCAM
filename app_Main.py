@@ -59,6 +59,8 @@ from appDatabase import ToolsDB2
 from vispy.gloo.util import _screenshot
 from vispy.io import write_png
 
+from appLogger import getLogger
+
 # FlatCAM defaults (preferences)
 from defaults import FlatCAMDefaults
 from settings import theme, is_theme_white
@@ -134,13 +136,7 @@ class App(QtCore.QObject):
 	# ###############################################################################################################
 	# ######################################### LOGGING #############################################################
 	# ###############################################################################################################
-	log = logging.getLogger('base')
-	log.setLevel(logging.DEBUG)
-	# log.setLevel(logging.WARNING)
-	formatter = logging.Formatter('[%(levelname)s][%(threadName)s] %(message)s')
-	handler = logging.StreamHandler()
-	handler.setFormatter(formatter)
-	log.addHandler(handler)
+	log = getLogger()
 
 	# ###############################################################################################################
 	# #################################### Get Cmd Line Options #####################################################
@@ -170,7 +166,7 @@ class App(QtCore.QObject):
 	cmd_line_shellvar = args.shellvar
 	cmd_line_headless = args.headless
 	args = args.misc
-	print(f'{args=}')
+	log.info(f'{args=}')
 
 	engine = '3D'
 
@@ -3605,7 +3601,7 @@ class App(QtCore.QObject):
 			self.kp = self.plotcanvas.graph_event_disconnect('key_press', self.ui.keyPressEvent)
 
 		self.preferencesUiManager.save_defaults(silent=True)
-		self.log.debug("App.quit_application() --> App Defaults saved.")
+		self.log.debug('App Defaults saved.')
 
 		if not self.cmd_line_headless:
 			# save app state to file
@@ -3642,7 +3638,7 @@ class App(QtCore.QObject):
 			# This will write the setting to the platform specific storage.
 			del stgs
 
-		self.log.debug("App.quit_application() --> App UI state saved.")
+		self.log.debug('App UI state saved.')
 
 		# try to quit the Socket opened by ArgsThread class
 		try:
@@ -3650,18 +3646,21 @@ class App(QtCore.QObject):
 			# self.new_launch.listener.close()
 			self.new_launch.stop.emit()
 		except Exception as err:
-			self.log.debug("App.quit_application() --> %s" % str(err))
+			self.log.debug(str(err))
 
 		# try to quit the QThread that run ArgsThread class
 		try:
 			# del self.new_launch
 			self.listen_th.quit()
 		except Exception as e:
-			self.log.debug("App.quit_application() --> %s" % str(e))
+			self.log.debug(str(e))
+
+		self.log.debug('ArgsThread stopped.')
 
 		# terminate workers
 		# self.workers.__del__()
 		self.clear_pool()
+		self.log.debug('Pool cleared.')
 
 		# quit app by signalling for self.kill_app() method
 		# self.close_app_signal.emit()

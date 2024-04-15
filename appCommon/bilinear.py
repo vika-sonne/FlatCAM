@@ -29,9 +29,9 @@
 # @license: http://opensource.org/licenses/BSD-3-Clause
 
 from bisect import bisect_left
-import logging
+from appLogger import getLogger
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class BilinearInterpolation(object):

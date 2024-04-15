@@ -22,14 +22,14 @@ from shapely.geometry import MultiPolygon
 import freetype as ft
 from fontTools import ttLib
 
-import logging
+from appLogger import getLogger
 import appTranslation as fcTranslate
 import builtins
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base2')
+log = getLogger('base')
 
 
 class ParseFont:

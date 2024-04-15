@@ -21,12 +21,12 @@ from shapely.geometry import LineString, MultiLineString
 
 import appTranslation as fcTranslate
 import builtins
-import logging
+from appLogger import getLogger
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class Panelize(AppTool):

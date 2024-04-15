@@ -9,7 +9,7 @@
 # File modified by: vika-sonne, 2023                       #
 # ##########################################################
 
-import logging
+from appLogger import getLogger
 import appTranslation as fcTranslate
 import builtins
 from copy import deepcopy
@@ -32,7 +32,7 @@ from appGUI.Color import get_fg_blue
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class ToolIsolation(AppTool, Gerber):

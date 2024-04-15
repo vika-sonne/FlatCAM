@@ -14,9 +14,9 @@ from shapely.geometry import Polygon, LineString, MultiPolygon
 from copy import copy, deepcopy
 import numpy as np
 import re
-import logging
+from appLogger import getLogger
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class PdfParser(QtCore.QObject):

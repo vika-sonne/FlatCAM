@@ -4,6 +4,7 @@ import signal
 from multiprocessing import freeze_support
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtWidgets import QApplication
+from appLogger import getLogger
 # FlatCAM imports
 from app_Main import App
 from appGUI import VisPyPatches
@@ -34,7 +35,7 @@ def setup_keyboard_interrupt_handling():
 
 	signal.signal(signal.SIGINT, _interrupt_handler)
 
-if __name__ == '__main__':
+def main():
 	from sys import argv
 	match argv:
 		case [_, '-h' | '-H']:
@@ -54,23 +55,30 @@ if __name__ == '__main__':
 				'Your Python version is {sys.version_info.major}.{sys.version_info.minor}.')
 		os._exit(-1)
 
+	log = getLogger()
+
 	debug_trace()
 	VisPyPatches.apply_patches()
 
 	# apply High DPI support
 	if(hdpi_support := hdpi()):
 		if hdpi_support == 2:
+			log.debug('EnableHighDpiScaling=True')
 			os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "1"
 			QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, True)
 		else:
+			log.debug('EnableHighDpiScaling=False')
 			os.environ["QT_AUTO_SCREEN_SCALE_FACTOR"] = "0"
 			QApplication.setAttribute(Qt.AA_EnableHighDpiScaling, False)
 
 	app = QApplication(sys.argv)
 
 	# apply Qt style if defined
-	if(style := style()):
-		app.setStyle(style)
+	if(s := style()):
+		app.setStyle(s)
 
 	fc = App(qapp=app)
 	sys.exit(app.exec_())
+
+if __name__ == '__main__':
+	main()

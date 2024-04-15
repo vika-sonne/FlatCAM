@@ -10,7 +10,7 @@ from camlib import arc, three_point_circle, grace
 
 import numpy as np
 import re
-import logging
+from appLogger import getLogger
 import traceback
 from copy import deepcopy
 import sys
@@ -24,7 +24,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class HPGL2:

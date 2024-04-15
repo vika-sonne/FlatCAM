@@ -1,6 +1,6 @@
 from tclCommands.TclCommand import TclCommandSignaled
 
-import logging
+from appLogger import getLogger
 import collections
 from copy import deepcopy
 from shapely.ops import unary_union
@@ -9,7 +9,7 @@ from shapely.geometry import Polygon, LineString, LinearRing
 import appTranslation as fcTranslate
 import builtins
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()

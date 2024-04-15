@@ -15,7 +15,7 @@ import shapely.affinity as affinity
 from vispy.geometry import Rect
 
 from copy import copy, deepcopy
-import logging
+from appLogger import getLogger
 
 from camlib import distance, arc, three_point_circle
 from appGUI.GUIElements import FCEntry, FCComboBox, FCTable, FCDoubleSpinner, FCSpinner, RadioSet, EvalEntry2, \
@@ -35,7 +35,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class DrawToolShape(object):

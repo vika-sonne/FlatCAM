@@ -11,9 +11,9 @@ from ezdxf.math.vector import Vector as ezdxf_vector
 
 from appParsers.ParseFont import *
 from appParsers.ParseDXF_Spline import *
-import logging
+from appLogger import getLogger
 
-log = logging.getLogger('base2')
+log = getLogger('base')
 
 
 def distance(pt1, pt2):

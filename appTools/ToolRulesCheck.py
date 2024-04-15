@@ -16,14 +16,14 @@ from appPool import *
 from shapely.ops import nearest_points
 from shapely.geometry import MultiPolygon, Polygon
 
-import logging
+from appLogger import getLogger
 import appTranslation as fcTranslate
 import builtins
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class RulesCheck(AppTool):

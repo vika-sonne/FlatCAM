@@ -15,7 +15,7 @@
 import appTranslation as fcTranslate
 import builtins
 import re
-import logging
+from appLogger import getLogger
 import inspect  # TODO: Remove
 from copy import deepcopy
 from numpy import Inf
@@ -33,7 +33,7 @@ from appObjects.FlatCAMScript import ScriptObject
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class KeySensitiveListView(QtWidgets.QTreeView):

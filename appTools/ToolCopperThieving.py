@@ -17,7 +17,7 @@ from shapely.geometry import Polygon, MultiPolygon, Point, LineString
 from shapely.geometry import box as box
 import shapely.affinity as affinity
 
-import logging
+from appLogger import getLogger
 from copy import deepcopy
 import numpy as np
 from collections.abc import Iterable
@@ -28,7 +28,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class ToolCopperThieving(AppTool):

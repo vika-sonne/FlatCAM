@@ -57,18 +57,12 @@ if platform.architecture()[0] == '64bit':
 	from ortools.constraint_solver import pywrapcp
 	from ortools.constraint_solver import routing_enums_pb2
 
-import logging
+from appLogger import getLogger
 
 import appTranslation as fcTranslate
 import builtins
 
-log = logging.getLogger('base2')
-log.setLevel(logging.DEBUG)
-
-formatter = logging.Formatter('[%(levelname)s] %(message)s')
-handler = logging.StreamHandler()
-handler.setFormatter(formatter)
-log.addHandler(handler)
+log = getLogger('base')
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()

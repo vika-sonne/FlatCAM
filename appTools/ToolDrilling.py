@@ -25,7 +25,7 @@ import re
 
 from matplotlib.backend_bases import KeyEvent as mpl_key_event
 
-import logging
+from appLogger import getLogger
 import appTranslation as fcTranslate
 import builtins
 import platform
@@ -33,7 +33,7 @@ import platform
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 settings = QtCore.QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):

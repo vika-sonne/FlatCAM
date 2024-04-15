@@ -21,7 +21,7 @@ from rtree import index as rtindex
 
 import traceback
 import math
-import logging
+from appLogger import getLogger
 from copy import deepcopy
 
 import appTranslation as fcTranslate
@@ -30,7 +30,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class SelectEditorExc(FCShapeTool):

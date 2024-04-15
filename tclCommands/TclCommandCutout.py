@@ -1,12 +1,12 @@
 from tclCommands.TclCommand import TclCommand
 
 import collections
-import logging
+from appLogger import getLogger
 
 from shapely.ops import unary_union
 from shapely.geometry import LineString
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class TclCommandCutout(TclCommand):

@@ -12,7 +12,7 @@ from appGUI.GUIElements import RadioSet, FCDoubleSpinner, FCCheckBox, \
 	OptionalHideInputSection, FCComboBox, FCFileSaveDialog, FCButton, FCLabel, FCSpinner
 
 from copy import deepcopy
-import logging
+from appLogger import getLogger
 from shapely.geometry import Polygon, MultiPolygon, Point
 import shapely.affinity as affinity
 from shapely.ops import unary_union
@@ -34,7 +34,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class Film(AppTool):

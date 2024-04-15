@@ -17,7 +17,7 @@ from descartes.patch import PolygonPatch
 from shapely.geometry import Polygon, LineString, LinearRing
 
 from copy import deepcopy
-import logging
+from appLogger import getLogger
 
 import numpy as np
 
@@ -36,7 +36,7 @@ from matplotlib.offsetbox import AnchoredText
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class CanvasCache(QtCore.QObject):

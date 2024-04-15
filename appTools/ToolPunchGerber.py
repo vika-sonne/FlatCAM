@@ -11,7 +11,7 @@ from appTool import AppTool
 from appGUI.GUIElements import RadioSet, FCDoubleSpinner, FCCheckBox, FCComboBox, FCTable
 
 from copy import deepcopy
-import logging
+from appLogger import getLogger
 from shapely.geometry import MultiPolygon, Point
 from shapely.ops import unary_union
 
@@ -21,7 +21,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class ToolPunchGerber(AppTool):

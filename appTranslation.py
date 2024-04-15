@@ -11,7 +11,7 @@
 
 from os import execl
 from sys import executable, argv
-from logging import getLogger
+from appLogger import getLogger
 from pathlib import Path
 from typing import Iterator, Callable
 from importlib import resources
@@ -27,7 +27,7 @@ from langcodes import Language
 SEARCH_PATH = 'translate'  # path for .bin files
 DEFAULT_LANGUAGE = 'English'
 
-log = getLogger('base')
+log = getLogger('base2')
 
 translation_dict = {}  # translated phrases
 language_code = None  # current language code

@@ -19,7 +19,7 @@ from matplotlib.backend_bases import KeyEvent as mpl_key_event
 from numpy import Inf
 from copy import deepcopy
 import math
-import logging
+from appLogger import getLogger
 import sys
 import simplejson as json
 
@@ -29,7 +29,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 settings = QtCore.QSettings("Open Source", "FlatCAM")
 if settings.contains("machinist"):

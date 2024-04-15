@@ -25,7 +25,7 @@ import numpy as np
 from numpy import Inf
 import traceback
 import sys
-import logging
+from appLogger import getLogger
 import simplejson as json
 
 import appTranslation as fcTranslate
@@ -34,7 +34,7 @@ import builtins
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class ToolPaint(AppTool, Gerber):

@@ -30,7 +30,7 @@ import numpy as np
 
 from appParsers.ParseFont import *
 
-log = logging.getLogger('base2')
+log = getLogger('base')
 
 
 def svgparselength(lengthstr):

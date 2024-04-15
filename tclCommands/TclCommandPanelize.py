@@ -2,11 +2,11 @@ from tclCommands.TclCommand import TclCommand
 
 import shapely.affinity as affinity
 
-import logging
+from appLogger import getLogger
 from copy import deepcopy
 import collections
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class TclCommandPanelize(TclCommand):

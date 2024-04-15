@@ -1,5 +1,5 @@
 import os
-import logging
+from appLogger import getLogger
 import builtins
 from PyQt5 import QtGui, QtCore, QtWidgets
 from PyQt5.QtCore import QSettings
@@ -18,7 +18,7 @@ if settings.contains("machinist"):
 else:
 	machinist_setting = 0
 
-log = logging.getLogger('base2')
+log = getLogger('base')
 
 
 class PreferencesUIManager:

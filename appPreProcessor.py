@@ -10,12 +10,12 @@ from abc import ABCMeta, abstractmethod
 
 # module-root dictionary of preprocessors
 
-import logging
+from appLogger import getLogger
 
 
 SEARCH_PATH = 'preprocessors'
 
-log = logging.getLogger('base')
+log = getLogger('base')
 preprocessors: dict[str, object] = {}  # preprocessor classes
 
 

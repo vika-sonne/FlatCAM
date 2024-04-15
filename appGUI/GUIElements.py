@@ -18,14 +18,14 @@ from PyQt5.QtGui import QKeySequence, QTextCursor
 
 from copy import copy
 import re
-import logging
+from appLogger import getLogger
 import html
 import sys
 
 import appTranslation as fcTranslate
 import builtins
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()

@@ -6,7 +6,7 @@
 # ##########################################################
 
 import sys
-import logging
+from appLogger import getLogger
 import traceback
 import simplejson as json
 import appTranslation as fcTranslate
@@ -30,7 +30,7 @@ from appGUI.Color import get_fg_blue
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class NonCopperClear(AppTool, Gerber):

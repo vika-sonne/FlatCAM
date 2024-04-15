@@ -11,7 +11,7 @@
 
 import appTranslation as fcTranslate
 import builtins
-import logging
+from appLogger import getLogger
 import numpy as np
 from PyQt5 import QtCore
 from vispy.scene.visuals import InfiniteLine, Line, Rectangle, Text
@@ -25,7 +25,7 @@ from settings import is_theme_white
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class PlotCanvas(QtCore.QObject, VisPyCanvas):

@@ -12,7 +12,7 @@
 # ##########################################################
 
 import math
-import logging
+from appLogger import getLogger
 import builtins
 from copy import copy
 from PyQt5 import QtWidgets, QtCore
@@ -30,7 +30,7 @@ from settings import is_theme_white
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
 
-log = logging.getLogger('base')
+log = getLogger('base')
 
 
 class Distance(AppTool):

@@ -1,7 +1,7 @@
 import os
 import stat
 import sys
-import logging
+from appLogger import getLogger
 import builtins
 from copy import deepcopy
 from appCommon.Common import LoudDict
@@ -16,8 +16,8 @@ from settings import DEFAULT_THEME, is_theme_black
 
 if '_' not in builtins.__dict__:
 	_ = fcTranslate.apply_language()
-# log = logging.getLogger('FlatCAMDefaults')
-log = logging.getLogger('base')
+# log = getLogger('FlatCAMDefaults')
+log = getLogger('base')
 
 
 class FlatCAMDefaults:
