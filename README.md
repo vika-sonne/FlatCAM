@@ -32,7 +32,7 @@ See [Pip documentation](https://pip.pypa.io/en/latest/installation/) to get `pip
 
 Install Python packages:
 ```
-python -m pip install -r requirements.txt
+python -m pip install --disable-pip-version-check --no-deps --ignore-installed -r requirements.txt
 ```
 
 ## Kubuntu instructions
