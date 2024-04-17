@@ -98,7 +98,7 @@ python -m pip uninstall <PACKAGE>
 For spetial cases it possible export poetry lock file to `requirements.txt` file for `pip` usage:
 ```
 poetry export -f requirements.txt --output requirements.txt
-python -m pip install -r requirements.txt
+python -m pip install --disable-pip-version-check --no-deps --ignore-installed -r requirements.txt
 ```
 
 # Run
