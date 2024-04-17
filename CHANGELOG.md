@@ -12,6 +12,8 @@ CHANGELOG for FlatCAM beta
 
 - move publish process to zipapp
 - add colored logging with different by logging level, timestamps look dimmer
+- move "locale" path to "translation"
+- move gettext.GNUTranslations to own appTranslation.py with ISO639/BCP47 langcodes
 
 05.2023
 
