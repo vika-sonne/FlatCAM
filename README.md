@@ -89,14 +89,10 @@ poetry install
 poetry env list
 ```
 
-Install/uninstall python package manually by pip in active environment:
-```
-python -m pip install <PACKAGE>
-python -m pip uninstall <PACKAGE>
-```
-
 For spetial cases it possible export poetry lock file to `requirements.txt` file for `pip` usage:
 ```
+cd FlatCAM
+poetry update
 poetry export -f requirements.txt --output requirements.txt
 python -m pip install --disable-pip-version-check --no-deps --ignore-installed -r requirements.txt
 ```
