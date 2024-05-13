@@ -1,8 +1,9 @@
 
 from logging import getLogger as logging_getLogger, root, StreamHandler, Formatter, DEBUG, INFO, WARNING, ERROR, CRITICAL
+from os import name
 
 
-class CustomFormatter(Formatter):
+class CustomFormatterLinux(Formatter):
 	WHITE = '\033[97m'
 	YELLOW = '\033[33m'
 	LIGHT_RED = '\033[91m'
@@ -25,11 +26,24 @@ class CustomFormatter(Formatter):
 		return self.FORMATS.get(record.levelno).format(record)
 
 
+class CustomFormatterWindows(Formatter):
+	FORMATS = {
+		DEBUG: Formatter(f'%(relativeCreated)f D %(filename)s:%(lineno)d:%(funcName)s %(message)s'),
+		INFO: Formatter(f'%(relativeCreated)f I %(filename)s:%(lineno)d:%(funcName)s %(message)s'),
+		WARNING: Formatter(f'%(relativeCreated)f W %(filename)s:%(lineno)d:%(funcName)s%(message)s'),
+		ERROR: Formatter(f'%(relativeCreated)f E %(filename)s:%(lineno)d:%(funcName)s %(message)s'),
+		CRITICAL: Formatter(f'%(relativeCreated)f C %(filename)s:%(lineno)d:%(funcName)s %(message)s'),
+	}
+
+	def format(self, record):
+		return self.FORMATS.get(record.levelno).format(record)
+
+
 log = logging_getLogger('base')
 log.setLevel(DEBUG)
 log_handler = StreamHandler()
 log_handler.setLevel(DEBUG)
-log_handler.setFormatter(CustomFormatter())
+log_handler.setFormatter(CustomFormatterWindows() if name == 'nt' else CustomFormatterLinux())
 # log.addHandler(log_handler)
 root.addHandler(log_handler)
 
