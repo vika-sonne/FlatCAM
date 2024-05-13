@@ -25,8 +25,6 @@
 # ├── en.bin
 # ...
 
-cd ..
-
 # convert GNU gettext files: .po to .mo
 find -name "*.po" -exec bash -c 'msgfmt "$0" -o "${0%.*}.mo"' {} \;
 

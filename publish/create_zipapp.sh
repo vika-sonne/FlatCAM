@@ -2,10 +2,12 @@
 
 # zip -vr FlatCAM.zip *.py LICENSE appCommon/*/*.py appEditors/*/*.py appGUI/*/*.py appObjects/*/*.py appParsers/*/*.py appTools/*/*.py descartes/*/*.py locale/*/*.py preprocessors/*/*.py tclCommands/*/*.py
 
-ZIPAPP_FILEPATH="publish/FlatCAM.zip"
+VERSION="2024_4"
+BUILD_PATH="_build"
+ZIPAPP_FILEPATH="$BUILD_PATH/FlatCAM_$VERSION.zip"
 FLATCAM_PATH="FlatCAM"
 
-cd ..
+mkdir "$BUILD_PATH"
 
 if [ -f $ZIPAPP_FILEPATH ]; then
 	rm -rfv "$ZIPAPP_FILEPATH"
