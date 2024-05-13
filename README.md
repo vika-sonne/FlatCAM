@@ -11,7 +11,18 @@ CAD program, and create G-Code for Isolation routing.
 
 # Installation instructions
 
-## Version requirements
+## Windows portable installation
+
+This installation contains Python with installed packages and Qt binaries.
+
+Note: Python 3.10 supports Windows 8.1 and newer.
+
+* Download and install [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist?view=msvc-170#visual-studio-2015-2017-2019-and-2022) for Visual Studio 2019 x64
+* Download and install [7z archiver](https://www.7-zip.org/download.html)
+* Download .7z archive file from [releases page](https://github.com/vika-sonne/FlatCAM/releases), for example: `FlatCAM_2024_4_windows_portable.7z`
+* Extract .7z archive and **run FlatCAM** in extracted folder: `FlatCAM.bat`
+
+## Versions requirements
 * **`Python 3.10`**
 * `PyQt5`
 * See `pyproject.toml` file for version dependency (or `requirements.txt` file)
@@ -27,15 +38,35 @@ See more on GitHub:
 
 See [Python downloads](https://www.python.org/downloads/).
 
-### 2. Python packages installation
+### 2. Get pip
 See [Pip documentation](https://pip.pypa.io/en/latest/installation/) to get `pip`.
 
+### 3. Python packages installation
+
+#### 3.1. Linux
 Install Python packages:
 ```
 python -m pip install --disable-pip-version-check --no-deps --ignore-installed -r requirements.txt
 ```
 
-## Kubuntu instructions
+#### 3.2. Windows
+
+Download and install:
+* [Qt 5.15.2](https://www.qt.io/offline-installers)
+* [.Net 4.8](https://dotnet.microsoft.com/en-us/download/dotnet-framework/net48) online installer (ndp48-web.exe) or offline installer (ndp48-x86-x64-allos-enu.exe)
+* [VS C++ Build tools](https://visualstudio.microsoft.com/visual-cpp-build-tools) (vs_BuildTools.exe)
+
+Set environment variables:
+* Add python to Path variable; example: `Path=C:\Users\IEUser\AppData\Local\Programs\Python\Python310;%Path%`
+* Add Qt to Path variable; example: `Path=C:\Users\IEUser\Downloads\msvc2019_64\bin;%Path%`
+* Add variable QT_QPA_PLATFORM_PLUGIN_PATH for Qt plugins path; example: `QT_QPA_PLATFORM_PLUGIN_PATH=C:\Users\IEUser\Downloads\msvc2019_64\plugins\platforms`
+
+Install Python packages with `PyQt5` windows version and `pywin32` package.
+```
+python -m pip install --disable-pip-version-check --no-deps --ignore-installed -r requirements_windows.txt
+```
+
+## Debian/Ubuntu instructions
 
 So, according to strictly dependency graph and new version of Debian `pip` (disallow to install packages to system Python environment, for example Kubuntu 23.04), project moved to automated version control:
 * [pyenv](https://github.com/pyenv/pyenv?ysclid=lhe4n4h8za388534739#installation) - for install to Python version environment
@@ -95,6 +126,13 @@ cd FlatCAM
 poetry update
 poetry export -f requirements.txt --output requirements.txt
 python -m pip install --disable-pip-version-check --no-deps --ignore-installed -r requirements.txt
+```
+
+### Developer tools installation
+
+Kubuntu 24.04:
+```sh
+sudo apt install pyqt5-dev-tools
 ```
 
 # Run
