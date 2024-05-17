@@ -1,0 +1,18 @@
+[Desktop Entry]
+X-AppImage-Arch=x86_64
+X-AppImage-Version=2024.4
+X-AppImage-Name=flatcam
+Name=flatcam
+Exec=usr/bin/python3
+Icon=flatcam_icon256
+Type=Application
+Terminal=false
+Categories=Development;Graphics;Electronics;
+Comment=FlatCAM is a program for preparing CNC jobs for making PCBs on a CNC router.
+Comment[de]=FlatCAM ist ein Programm zur Vorbereitung von CNC-Aufträgen zur Herstellung von Leiterplatten auf einer CNC-Fräse.
+Comment[es]=FlatCAM es un programa para preparar trabajos CNC para fabricar PCB en un enrutador CNC.
+Comment[fr]=FlatCAM est un programme permettant de préparer des tâches CNC pour la fabrication de PCB sur un routeur CNC.
+Comment[it]=FlatCAM è un programma per la preparazione di lavori CNC per la realizzazione di PCB su un router CNC.
+Comment[ru]=FlatCAM программа для производства печатных плат на фрезерных станках.
+Comment[tr]=FlatCAM, CNC routerda PCB yapmak için CNC işlerini hazırlamak için kullanılan bir programdır.
+MimeType=application/x-flatcam;

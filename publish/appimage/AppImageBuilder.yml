@@ -1,0 +1,121 @@
+version: 1
+script:
+  # Remove any previous build files
+  - rm -rf $TARGET_APPDIR | true
+  # Extract python application code into the AppDir
+  - mkdir -p $TARGET_APPDIR/usr/src
+  - unzip -d $TARGET_APPDIR/usr/src FlatCAM_2024_4.zip
+  # Copy icon and desktop files
+  - mkdir -p $TARGET_APPDIR/usr/share/icons/
+  - cp ./flatcam_icon256.png $TARGET_APPDIR/usr/share/icons/
+  - mkdir -p $TARGET_APPDIR/usr/share/applications/
+  - cp ./org.flatcam.FlatCAM.desktop $TARGET_APPDIR/usr/share/applications/
+
+AppDir:
+  app_info:
+    id: org.flatcam.FlatCAM
+    name: flatcam
+    icon: flatcam_icon256
+    version: '2024.4'
+    # Set the python executable as entry point
+    exec: usr/bin/python3
+    # Set the application main script path as argument. Use '$@' to forward CLI parameters
+    exec_args: "${APPDIR}/usr/src/__main__.py $@"
+
+  apt:
+    arch: amd64
+    sources:
+      - sourceline: 'deb [arch=amd64] http://archive.ubuntu.com/ubuntu/ jammy main restricted universe multiverse'
+        key_url: 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0x871920D1991BC93C'
+
+    include:
+      - python3.10
+      - python3-pip
+      - python3-pkg-resources
+      - python3-pyqt5
+      - python3-pyqt5.qtopengl
+      - libfreetype6
+      - libfontconfig1
+      - python3-tk
+      - python3-cairo
+      - python3-vispy
+      - python3-simplejson
+      - python3-shapely
+      # - python3-reportlab
+      # - python3-reportlab-accel
+      # - python3-rl-renderpm # reportlab package available since 24.04
+      - python3-svglib
+      - python3-svg.path
+      - python3-opengl
+      - python3-matplotlib
+      - python-matplotlib-data
+      - python3-rasterio
+      - python3-ezdxf
+      # - python3-protobuf # package should be more fresh for internal/builder.py
+      - python3-qrcode
+      - python3-serial
+      - python3-dill
+    exclude:
+      - perl
+      - perl-base
+      - libpam-runtime
+      - systemd
+      - dbus
+
+  runtime:
+    version: v2.0.0
+    env:
+      PATH: '${APPDIR}/usr/bin:${APPDIR}/usr/local/bin:${PATH}'
+      # Set python home
+      # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONHOME
+      PYTHONHOME: '${APPDIR}/usr'
+      # Path to the site-packages dir or other modules dirs
+      # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
+      # PYTHONPATH: '${APPDIR}/usr/lib/python3.10/site-packages:/home/vika/Downloads/develop/FlatCAM-AppImage/AppDir/home/vika/Downloads/develop/FlatCAM-AppImage/AppDir/usr/local/lib/python3.10/dist-packages/langcodes/__init__.py'
+      PYTHONPATH: '${APPDIR}/usr/lib/python3.10:${APPDIR}/usr/lib/python3/dist-packages:${APPDIR}/usr/local/lib/python3.10/dist-packages'
+      # Set matplotlib config path
+      MPLCONFIGDIR: '${APPDIR}/usr/share/matplotlib/matplotlib.conf'
+      MATPLOTLIBDATA: '${APPDIR}/usr/share/matplotlib/mpl-data'
+      MATPLOTLIBRC: '${APPDIR}/usr/share/matplotlib/matplotlib.conf/matplotlibrc'
+      # Set tk paths
+      TCL_LIBRARY: '${APPDIR}/usr/share/tcltk/tcl8.6'
+      TK_LIBRARY: '${APPDIR}/usr/share/tcltk/tk8.6'
+
+  after_bundle: |
+    # Set Python environment to AppDir
+    export PYTHONHOME=${TARGET_APPDIR}/usr
+    export PYTHONPATH=${TARGET_APPDIR}/usr/lib/python3.10/site-packages:$TARGET_APPDIR/usr/lib/python3.10
+    export PATH=${TARGET_APPDIR}/usr/bin:$PATH
+    # Install application dependencies into AppDir (save pip cache)
+    echo "python --version: $(python3 --version)"
+    export C_INCLUDE_PATH="${TARGET_APPDIR}/usr/include/:$C_INCLUDE_PATH"
+    export PIP_CACHE_DIR=./pip-cache
+    python3 -m pip install --prefix=usr --root=$TARGET_APPDIR langcodes rlpycairo rtree protobuf ortools reportlab==4.2.0 rl-renderPM==4.0.3
+    # copy matplotlib data
+    cp -R $TARGET_APPDIR/usr/share/matplotlib/mpl-data $TARGET_APPDIR/usr/lib/python3/dist-packages/matplotlib/
+    # Patch ezdxf package
+    rm -rf $TARGET_APPDIR/usr/lib/python3/dist-packages/ezdxf/audit
+    cp ./patch/audit.py $TARGET_APPDIR/usr/lib/python3/dist-packages/ezdxf/
+    # Patch vispy package
+    # cp -f ./patch/program.py $TARGET_APPDIR/usr/lib/python3/dist-packages/vispy/gloo/
+    patch $TARGET_APPDIR/usr/lib/python3/dist-packages/vispy/gloo/program.py < ./patch/program.patch
+    # Delete unused files at runtime
+    rm -rf $TARGET_APPDIR/usr/include
+    rm -rf $TARGET_APPDIR/usr/lib/gcc
+    rm -rf $TARGET_APPDIR/usr/bin/x86_64-linux-gnu-*
+    rm -rf $TARGET_APPDIR/usr/bin/systemd-*
+    rm -rf $TARGET_APPDIR/usr/bin/dbus-*
+    rm -rf $TARGET_APPDIR/usr/lib/x86_64-linux-gnu/perl*
+    rm -rf $TARGET_APPDIR/usr/lib/x86_64-linux-gnu/cmake
+    rm -rf $TARGET_APPDIR/usr/lib/x86_64-linux-gnu/*.a
+    rm -rf $TARGET_APPDIR/usr/share/man
+    rm -rf $TARGET_APPDIR/usr/share/info
+    rm -rf $TARGET_APPDIR/usr/share/doc
+    rm -rf $TARGET_APPDIR/usr/share/jupyter
+    rm -rf $TARGET_APPDIR/usr/share/perl*
+    rm -rf $TARGET_APPDIR/usr/share/proj
+
+AppImage:
+  update-information: None
+  sign-key: None
+  arch: x86_64

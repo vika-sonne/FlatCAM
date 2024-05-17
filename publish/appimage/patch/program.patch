@@ -1,0 +1,15 @@
+--- ./AppDir/usr/lib/python3/dist-packages/vispy/gloo/program.py	2020-11-28 05:06:20.000000000 +0300
++++ ./patch/program.py	2024-05-16 05:46:19.932167895 +0300
+@@ -110,9 +110,9 @@
+         'ivec3':        (np.int32,   3),
+         'ivec4':        (np.int32,   4),
+         'bool':         (np.int32,   1),
+-        'bvec2':        (np.bool,    2),
+-        'bvec3':        (np.bool,    3),
+-        'bvec4':        (np.bool,    4),
++        'bvec2':        (np.bool_,   2),
++        'bvec3':        (np.bool_,   3),
++        'bvec4':        (np.bool_,   4),
+         'mat2':         (np.float32, 4),
+         'mat3':         (np.float32, 9),
+         'mat4':         (np.float32, 16),
