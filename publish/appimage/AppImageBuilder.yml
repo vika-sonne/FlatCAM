@@ -71,7 +71,6 @@ AppDir:
       PYTHONHOME: '${APPDIR}/usr'
       # Path to the site-packages dir or other modules dirs
       # See https://docs.python.org/3/using/cmdline.html#envvar-PYTHONPATH
-      # PYTHONPATH: '${APPDIR}/usr/lib/python3.10/site-packages:/home/vika/Downloads/develop/FlatCAM-AppImage/AppDir/home/vika/Downloads/develop/FlatCAM-AppImage/AppDir/usr/local/lib/python3.10/dist-packages/langcodes/__init__.py'
       PYTHONPATH: '${APPDIR}/usr/lib/python3.10:${APPDIR}/usr/lib/python3/dist-packages:${APPDIR}/usr/local/lib/python3.10/dist-packages'
       # Set matplotlib config path
       MPLCONFIGDIR: '${APPDIR}/usr/share/matplotlib/matplotlib.conf'
